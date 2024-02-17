@@ -23,7 +23,7 @@ contract DeployerApplication {
     }
 
     function DeployContract(
-        uint _tenderid, // Reordered arguments
+        uint _tenderid, 
         string memory _title,
         string memory _status,
         string memory _details,
