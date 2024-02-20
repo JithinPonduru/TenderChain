@@ -1,26 +1,27 @@
-import React from 'react';
-import '/home/Jithin/Documents/3rd_Year/2nd_Sem/Software Engineering /tendercontract_backend/tendercontract/src';
-import Footer from './Home_Footer.js';
-import Navbar from './Navbar.js';
-import BodyofTenderPage from './BodyofTenderPage.js';
+import React, { useState } from 'react';
+import Navbar from './Navbar';
+import BodyofTenderPage from './BodyofTenderPage';
+import Memos from './ContractList';
+import Footer from './Home_Footer';
 
-function TenderPage() {
-    return (
-        <div>
-            <div>
-                <Navbar />
-            </div>
+function TenderPage({ state, contract }) {
+  const [showMemos, setShowMemos] = useState(false);
 
-            <div>
-                <BodyofTenderPage />
-            </div>
+  const toggleMemos = () => {
+    setShowMemos(!showMemos);
+  };
 
-            <div>
-                <Footer />
-            </div>
-            
-        </div>
-    );
+  return (
+    <>
+      <Navbar />
+      <BodyofTenderPage contract={contract} />
+      <button style={{marginLeft : '25%' , marginBottom : '2%' , width : '35%' }} onClick={toggleMemos} className="btn btn-warning">
+        {showMemos ? 'Hide Deployed Contracts' : 'Show Deployed Contracts'}
+      </button>
+      {showMemos && <Memos state={state} />}
+      <Footer />
+    </>
+  );
 }
 
 export default TenderPage;

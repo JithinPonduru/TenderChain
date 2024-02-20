@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import React from 'react';
+
 
 const Memos = ({ state }) => {
     const [memos, setMemos] = useState([]);
@@ -14,8 +16,10 @@ const Memos = ({ state }) => {
         fetchMemos();
     }, [contract]);
 
+
+    
     return (
-        <div style={{ margin: '15px 35px', overflowX: 'auto' }}>
+        <div style={{ borderRadius: '15px', margin: '15px 35px', overflowX: 'auto', backgroundColor: '#e5e5e5' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center' }}>
                 <thead>
                     <tr>
@@ -32,23 +36,30 @@ const Memos = ({ state }) => {
                 </thead>
                 <tbody>
                     {memos.map((memo, index) => (
-                        <tr key={index}>
-                            <td style={{ padding: '8px' }}>{(memo.tenderid).toString()}</td>
-                            <td style={{ padding: '8px' }}>{memo.status}</td>
-                            <td style={{ padding: '8px' }}>{memo.title}</td>
-                            <td style={{ padding: '8px' }}>{memo.details}</td>
-                            <td style={{ padding: '8px' }}>{memo.DeployedTime}</td>
-                            <td style={{ padding: '8px' }}>{memo.Startdate}</td>
-                            <td style={{ padding: '8px' }}>{memo.Lastdate}</td>
-                            <td style={{ padding: '8px' }}>{memo.BidopeningDate}</td>
-                            <td style={{ padding: '8px' }}>{memo.OrgainsationName}</td>
-                        </tr>
+                        <React.Fragment key={index}>
+                            <tr>
+                                <td style={{ padding: '8px' }}>{(memo.tenderid).toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo.status}</td>
+                                <td style={{ padding: '8px' }}>{memo.title}</td>
+                                <td style={{ padding: '8px' }}>{memo.details}</td>
+                                <td style={{ padding: '8px' }}>{memo.DeployedTime}</td>
+                                <td style={{ padding: '8px' }}>{memo.Startdate}</td>
+                                <td style={{ padding: '8px' }}>{memo.Lastdate}</td>
+                                <td style={{ padding: '8px' }}>{memo.BidopeningDate}</td>
+                                <td style={{ padding: '8px' }}>{memo.OrgainsationName}</td>
+                            </tr>
+                            <tr>
+                                <td colSpan="9" style={{ borderBottom: '2px solid #000' }}></td>
+                            </tr>
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>
         </div>
-
     );
+    
+
+
 };
 
 export default Memos;

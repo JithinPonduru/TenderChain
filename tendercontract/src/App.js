@@ -2,10 +2,9 @@ import './App.css';
 import abi from './contract/DeployerApplication.json';
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import Navbar from './components/Navbar';
-import Footer from './components/Home_Footer.js';
-import BodyofTenderPage from './components/BodyofTenderPage';
-import Memos from './components/ContractList.js';
+import TenderPage from './components/Tender_Page.js'
+import HomePage from './components/Home_page.js'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const contractAddress = "0x77d13EC1a730c2Dc2e282dc44d87Aba5cE8eb63f";
@@ -38,15 +37,13 @@ function App() {
     connectWallet();
   }, []);
 
-  console.log(walletState);
-
   return (
-    <div className="App">
-      <Navbar />
-      <BodyofTenderPage contract={walletState.contract} />
-      <Memos state={walletState} />
-      <Footer />
-    </div>
+    <Router> 
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/deployer" element={<TenderPage state={walletState} contract={walletState.contract} />} />
+      </Routes>
+    </Router>
   );
 }
 

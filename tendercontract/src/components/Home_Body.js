@@ -98,7 +98,7 @@ function Body() {
                         placeholder="Search Tenders"
                         className="search-input btn-get-started"
                       />
-                      <a href="./projects.html">
+                      <a href="./tenders">
                         <button type="submit" className="button_icon" style={{ backgroundColor: "transparent" }}>
                           <i className="fas fa-search"></i>
                         </button>
