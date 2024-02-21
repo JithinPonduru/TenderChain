@@ -4,8 +4,16 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 
+// cabin number 32 2nd floor
+
 function Body() {
 
+  const [divzithin , setdivzithin] = useState(false);
+
+  function onSubmit(e) {
+    e.preventDefault();
+    setdivzithin(true);
+  }
 
   useEffect(() => {
     AOS.init({ duration: 2000 });
@@ -59,7 +67,7 @@ function Body() {
                       </li>
                       <li><a href="google.com">Tenders by Location</a></li>
                       <li><a href="google.com">Tenders by Organisation</a></li>
-                      <li><a href="google.com">Contract Posting </a></li>
+                      <li><a href="/deployer">Contract Posting </a></li>
                     </ul>
                   </li>
                 </ul>
@@ -172,10 +180,10 @@ function Body() {
                       </div>
 
                       <div id="login-form" style={{ display: formName === 'login-form' ? 'block' : 'none' }}>
-                        <form action="forms/login.php" method="post" className="php-email-form">
+                        <form action="/tender" onSubmit={onSubmit} className="php-email-form">
                           <div className="row gy-3">
                             <div className="col-md-12 ">
-                              <input type="number" className="form-control" name="loginid" placeholder="Login" required style={{ borderRadius: "30px" }} />
+                              <input type="email" className="form-control" name="loginid" placeholder="example@gmail.com" required style={{ borderRadius: "30px" }} />
                             </div>
                             <div className="col-md-12">
                               <input type="password" className="form-control" name="password" placeholder="Password" required style={{ borderRadius: "30px" }} />
@@ -185,6 +193,9 @@ function Body() {
                             </div>
                           </div>
                         </form>
+                        <div id='zithin'>
+                          {divzithin && <h1> Hello Zithin</h1>}
+                        </div>
                       </div>
                     </div>
                   </motion.div>

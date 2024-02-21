@@ -68,20 +68,66 @@ function BodyofTenderPage({ contract }) {
                         <div className="input-group input-group-icon">
                             <input id='Details' type="text" placeholder="Discription of the Project" style={{ borderRadius: '10px' }} required />
                             <div className="input-icon">
-                            <i class="fa-solid fa-info" style={{ marginLeft: '15px' }}></i>
+                                <i class="fa-solid fa-info" style={{ marginLeft: '15px' }}></i>
                             </div>
                         </div>
                         <div className="col-half">
                             <h4>Start Date</h4>
                             <div className="input-group">
                                 <div className="col-third">
-                                    <input id='startDD' type="text" placeholder="DD" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='startDD'
+                                        type="text"
+                                        placeholder="DD"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            } else {
+                                                const value = parseInt(e.target.value + e.key, 10);
+                                                if (value < 1 || value > 31) {
+                                                    e.preventDefault();
+                                                }
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                                 <div className="col-third">
-                                    <input id='startMM' type="text" placeholder="MM" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='startMM'
+                                        type="text"
+                                        placeholder="MM"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            } else {
+                                                const value = parseInt(e.target.value + e.key, 10);
+                                                if (value < 1 || value > 12) {
+                                                    e.preventDefault();
+                                                }
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                                 <div className="col-third">
-                                    <input id='startYYYY' type="text" placeholder="YYYY" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='startYYYY'
+                                        type="text"
+                                        placeholder="YYYY"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -89,13 +135,59 @@ function BodyofTenderPage({ contract }) {
                             <h4>Last Date</h4>
                             <div className="input-group">
                                 <div className="col-third">
-                                    <input id='LastDD' type="text" placeholder="DD" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='LastDD'
+                                        type="text"
+                                        placeholder="DD"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            } else {
+                                                const value = parseInt(e.target.value + e.key, 10);
+                                                if (value < 1 || value > 31) {
+                                                    e.preventDefault();
+                                                }
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                                 <div className="col-third">
-                                    <input id='LastMM' type="text" placeholder="MM" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='LastMM'
+                                        type="text"
+                                        placeholder="MM"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            } else {
+                                                const value = parseInt(e.target.value + e.key, 10);
+                                                if (value < 1 || value > 12) {
+                                                    e.preventDefault();
+                                                }
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                                 <div className="col-third">
-                                    <input id='LastYYYY' type="text" placeholder="YYYY" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='LastYYYY'
+                                        type="text"
+                                        placeholder="YYYY"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -103,13 +195,59 @@ function BodyofTenderPage({ contract }) {
                             <h4>Bidding Date</h4>
                             <div className="input-group">
                                 <div className="col-third">
-                                    <input id='BiddingDD' type="text" placeholder="DD" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='BiddingDD'
+                                        type="text"
+                                        placeholder="DD"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            } else {
+                                                const value = parseInt(e.target.value + e.key, 10);
+                                                if (value < 1 || value > 31) {
+                                                    e.preventDefault();
+                                                }
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                                 <div className="col-third">
-                                    <input id='BiddingMM' type="text" placeholder="MM" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='BiddingMM'
+                                        type="text"
+                                        placeholder="MM"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            } else {
+                                                const value = parseInt(e.target.value + e.key, 10);
+                                                if (value < 1 || value > 12) {
+                                                    e.preventDefault();
+                                                }
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                                 <div className="col-third">
-                                    <input id='BiddingYYYY' type="text" placeholder="YYYY" style={{ marginRight: '10px' }} required />
+                                    <input
+                                        id='BiddingYYYY'
+                                        type="text"
+                                        placeholder="YYYY"
+                                        style={{ marginRight: '10px' }}
+                                        onKeyDown={(e) => {
+                                            const key = parseInt(e.key, 10);
+                                            if (isNaN(key) || key < 0 || key > 9) {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        required
+                                    />
                                 </div>
                             </div>
                         </div>
