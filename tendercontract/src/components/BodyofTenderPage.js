@@ -7,7 +7,16 @@ function generateTenderId() {
 }
 
 
+
 function BodyofTenderPage({ contract }) {
+
+
+
+    const handleInput = (e) => {
+        const input = e.target;
+        input.value = input.value.replace(/\D/g, ''); // Remove non-numeric characters
+    };
+
     const currentDate = new Date();
     const day = currentDate.getDate();
     const month = currentDate.getMonth() + 1; // Month is zero-based, so add 1
@@ -80,17 +89,8 @@ function BodyofTenderPage({ contract }) {
                                         type="text"
                                         placeholder="DD"
                                         style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            } else {
-                                                const value = parseInt(e.target.value + e.key, 10);
-                                                if (value < 1 || value > 31) {
-                                                    e.preventDefault();
-                                                }
-                                            }
-                                        }}
+                                        maxLength="2"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>
@@ -100,17 +100,8 @@ function BodyofTenderPage({ contract }) {
                                         type="text"
                                         placeholder="MM"
                                         style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            } else {
-                                                const value = parseInt(e.target.value + e.key, 10);
-                                                if (value < 1 || value > 12) {
-                                                    e.preventDefault();
-                                                }
-                                            }
-                                        }}
+                                        maxLength="2"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>
@@ -119,13 +110,8 @@ function BodyofTenderPage({ contract }) {
                                         id='startYYYY'
                                         type="text"
                                         placeholder="YYYY"
-                                        style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            }
-                                        }}
+                                        maxLength="4"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>
@@ -140,17 +126,8 @@ function BodyofTenderPage({ contract }) {
                                         type="text"
                                         placeholder="DD"
                                         style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            } else {
-                                                const value = parseInt(e.target.value + e.key, 10);
-                                                if (value < 1 || value > 31) {
-                                                    e.preventDefault();
-                                                }
-                                            }
-                                        }}
+                                        maxLength="2"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>
@@ -160,17 +137,8 @@ function BodyofTenderPage({ contract }) {
                                         type="text"
                                         placeholder="MM"
                                         style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            } else {
-                                                const value = parseInt(e.target.value + e.key, 10);
-                                                if (value < 1 || value > 12) {
-                                                    e.preventDefault();
-                                                }
-                                            }
-                                        }}
+                                        maxLength="2"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>
@@ -179,13 +147,8 @@ function BodyofTenderPage({ contract }) {
                                         id='LastYYYY'
                                         type="text"
                                         placeholder="YYYY"
-                                        style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            }
-                                        }}
+                                        maxLength="4"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>
@@ -200,17 +163,8 @@ function BodyofTenderPage({ contract }) {
                                         type="text"
                                         placeholder="DD"
                                         style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            } else {
-                                                const value = parseInt(e.target.value + e.key, 10);
-                                                if (value < 1 || value > 31) {
-                                                    e.preventDefault();
-                                                }
-                                            }
-                                        }}
+                                        maxLength="2"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>
@@ -220,17 +174,8 @@ function BodyofTenderPage({ contract }) {
                                         type="text"
                                         placeholder="MM"
                                         style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            } else {
-                                                const value = parseInt(e.target.value + e.key, 10);
-                                                if (value < 1 || value > 12) {
-                                                    e.preventDefault();
-                                                }
-                                            }
-                                        }}
+                                        maxLength="2"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>
@@ -239,13 +184,8 @@ function BodyofTenderPage({ contract }) {
                                         id='BiddingYYYY'
                                         type="text"
                                         placeholder="YYYY"
-                                        style={{ marginRight: '10px' }}
-                                        onKeyDown={(e) => {
-                                            const key = parseInt(e.key, 10);
-                                            if (isNaN(key) || key < 0 || key > 9) {
-                                                e.preventDefault();
-                                            }
-                                        }}
+                                        maxLength="4"
+                                        onInput={handleInput}
                                         required
                                     />
                                 </div>

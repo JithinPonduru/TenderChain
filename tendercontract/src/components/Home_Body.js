@@ -6,9 +6,38 @@ import 'aos/dist/aos.css';
 
 // cabin number 32 2nd floor
 
-function Body() {
+function Body({contract}) {
 
-  const [divzithin , setdivzithin] = useState(false);
+  async function deploycontract(e) {
+    e.preventDefault();
+    try {
+      console.log("Entered")
+      const name = document.querySelector('#name').value;
+      const email = document.querySelector('#email').value;
+      const Country = document.querySelector('#Country').value;
+      const phone = document.querySelector('#phone').value;
+  
+      // Assuming `contract` is passed as a prop to the component
+      const transaction = await contract.addUser(name, email, Country, phone);
+      await transaction.wait();
+  
+      // Set divzithin state to true after successful transaction
+      setdivzithin(true);
+  
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
+
+
+
+
+
+
+  const [divzithin, setdivzithin] = useState(false);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -161,16 +190,19 @@ function Body() {
                       </h2>
                       <p id="form-type">{formName === 'signup-form' ? 'Sign Up' : 'Log In'}</p>
                       <div id="signup-form" style={{ display: formName === 'signup-form' ? 'block' : 'none' }}>
-                        <form action="forms/signup.php" method="post" className="php-email-form">
+                        <form  onSubmit={deploycontract} className="php-email-form">
                           <div className="row gy-3">
                             <div className="col-md-12">
-                              <input type="text" name="name" className="form-control" placeholder="Name" required style={{ borderRadius: "30px" }} />
+                              <input type="text" id="name" className="form-control" placeholder="Name" required style={{ borderRadius: "30px" }} />
                             </div>
                             <div className="col-md-12 ">
-                              <input type="email" className="form-control" name="email" placeholder="Email" required style={{ borderRadius: "30px" }} />
+                              <input type="email" className="form-control" id="email" placeholder="Email" required style={{ borderRadius: "30px" }} />
+                            </div>
+                            <div className="col-md-12 ">
+                              <input type="text" className="form-control" id="Country" placeholder="Country" required style={{ borderRadius: "30px" }} />
                             </div>
                             <div className="col-md-12">
-                              <input type="text" className="form-control" name="phone" placeholder="Phone" required style={{ borderRadius: "30px" }} />
+                              <input type="text" className="form-control" id="phone" placeholder="Phone" required style={{ borderRadius: "30px" }} />
                             </div>
                             <div className="col-md-12 text-center">
                               <button style={{ borderRadius: "50px" }} type="submit">Sign Up</button>

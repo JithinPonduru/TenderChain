@@ -7,7 +7,8 @@ import HomePage from './components/Home_page.js'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  const contractAddress = "0x77d13EC1a730c2Dc2e282dc44d87Aba5cE8eb63f";
+  // const contractAddress = "0x77d13EC1a730c2Dc2e282dc44d87Aba5cE8eb63f";
+  const contractAddress = "0x6a831ce70f413B4c220d55fCeA1a6449F63687e6";
   const [walletState, setWalletState] = useState({
     provider: null,
     signer: null,
@@ -40,7 +41,7 @@ function App() {
   return (
     <Router> 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage contract = {walletState.contract} />} />
         <Route path="/deployer" element={<TenderPage state={walletState} contract={walletState.contract} />} />
       </Routes>
     </Router>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import React from 'react';
 
-
 const Memos = ({ state }) => {
     const [memos, setMemos] = useState([]);
     const { contract } = state;
@@ -9,15 +8,13 @@ const Memos = ({ state }) => {
     useEffect(() => {
         const fetchMemos = async () => {
             if (contract) {
-                const memos = await contract.getMemo();
-                setMemos(memos);
+                const memos = await contract.getMemo("0xc6eE3A2b3Db0f58B91B16DA71105d51628b8d294");
+                setMemos([memos]); // Assuming getMemo returns a single memo
             }
         };
         fetchMemos();
     }, [contract]);
 
-
-    
     return (
         <div style={{ borderRadius: '15px', margin: '15px 35px', overflowX: 'auto', backgroundColor: '#e5e5e5' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center' }}>
@@ -38,15 +35,15 @@ const Memos = ({ state }) => {
                     {memos.map((memo, index) => (
                         <React.Fragment key={index}>
                             <tr>
-                                <td style={{ padding: '8px' }}>{(memo.tenderid).toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo.status}</td>
-                                <td style={{ padding: '8px' }}>{memo.title}</td>
-                                <td style={{ padding: '8px' }}>{memo.details}</td>
-                                <td style={{ padding: '8px' }}>{memo.DeployedTime}</td>
-                                <td style={{ padding: '8px' }}>{memo.Startdate}</td>
-                                <td style={{ padding: '8px' }}>{memo.Lastdate}</td>
-                                <td style={{ padding: '8px' }}>{memo.BidopeningDate}</td>
-                                <td style={{ padding: '8px' }}>{memo.OrgainsationName}</td>
+                                <td style={{ padding: '8px' }}>{memo[0].toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo[1].toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo[2].toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo[3].toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo[4].toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo[5].toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo[6].toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo[7].toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo[8].toString()}</td>
                             </tr>
                             <tr>
                                 <td colSpan="9" style={{ borderBottom: '2px solid #000' }}></td>
@@ -57,9 +54,6 @@ const Memos = ({ state }) => {
             </table>
         </div>
     );
-    
-
-
 };
 
 export default Memos;
