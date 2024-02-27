@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import React from 'react';
 
+
+// The way i implemented this in such a way that the memos that are only related to the current user will be displayed like current metamask id is 0x6a831ce70f413B4c220d55fCeA1a6449F63687e6
+
+
 const Memos = ({ state }) => {
     const [memos, setMemos] = useState([]);
     const { contract } = state;
@@ -8,7 +12,12 @@ const Memos = ({ state }) => {
     useEffect(() => {
         const fetchMemos = async () => {
             if (contract) {
-                const memos = await contract.getMemo("0xc6eE3A2b3Db0f58B91B16DA71105d51628b8d294");
+                // Get the current MetaMask account ID
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const currentAccount = accounts[0]; 
+                
+                // Use the current account ID in the contract call
+                const memos = await contract.getMemo(currentAccount);
                 setMemos([memos]); // Assuming getMemo returns a single memo
             }
         };

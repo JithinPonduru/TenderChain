@@ -41,7 +41,7 @@ function BodyofTenderPage({ contract }) {
             const status = startDate <= currentDate && lastDate >= currentDate ? "Active" : "Inactive";
 
             // Deploy contract
-            const transaction = await contract.DeployContract(
+            const transaction = await contract.deployContract(
                 tenderid.toString(),
                 title.toString(),
                 status.toString(),

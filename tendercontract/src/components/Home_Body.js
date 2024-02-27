@@ -9,7 +9,9 @@ import 'aos/dist/aos.css';
 function Body({ contract }) {
 
   const [alert, setalert] = useState(false);
-  
+  const [existemail, setexistemail] = useState(false);
+  const [ispasswordworng, setispasswordworng] = useState(false);
+  const [islogin, setlogin] = useState(false);
 
   async function deploycontract(e) {
     e.preventDefault();
@@ -41,24 +43,24 @@ function Body({ contract }) {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     // Retrieve hashed password from the contract
     const hashedPassword = await contract.getPassword(email);
-  
+
     // Validate if the email exists in the mapping
     if (hashedPassword === '') {
       console.log('Email does not exist');
-      return;
+      setexistemail(true);
     }
-  
-    // Validate the password
     if (hashedPassword === password) {
       console.log('Login Success');
+      setlogin(true);
     } else {
       console.log('Incorrect password');
+      setispasswordworng(true);
     }
   }
-  
+
 
   useEffect(() => {
     AOS.init({ duration: 2000 });
@@ -112,7 +114,11 @@ function Body({ contract }) {
                       </li>
                       <li><a href="google.com">Tenders by Location</a></li>
                       <li><a href="google.com">Tenders by Organisation</a></li>
-                      <li><a href="/deployer">Contract Posting </a></li>
+                      {islogin ? (
+                        <li><a href="/deployer">Contract Posting</a></li>
+                      ) : <li><a href="#logindiv" >Contract Posting</a></li>
+                      }
+
                     </ul>
                   </li>
                 </ul>
@@ -198,7 +204,7 @@ function Body({ contract }) {
                       </p>
                     </motion.div>
                   </div>
-                  <motion.div layoutId="underline" className="col-lg-5 form" >
+                  <motion.div id='logindiv' layoutId="underline" className="col-lg-5 form" >
                     <div className="form-content">
                       <h2 style={{ color: "#ffbb00", marginBottom: "8%" }}>
                         <span id="signup-heading" onClick={() => showForm('signup-form')}>Sign Up</span>/
@@ -246,6 +252,15 @@ function Body({ contract }) {
                             <div className="col-md-12">
                               <input type="password" className="form-control" name="password" placeholder="Password" required style={{ borderRadius: "30px" }} autoComplete="off" />
                             </div>
+                            <div id='loginidform'>
+                              {islogin ? (
+                                <h3 style={{ color: 'yellow' }}>Login Success</h3>
+                              ) : existemail ? (
+                                <h3 style={{ color: 'red' }}>Email does not exist</h3>
+                              ) : ispasswordworng ? (
+                                <h3 style={{ color: 'red' }}>Password wrong</h3>
+                              ) : null}
+                            </div>
                             <div className="col-md-12 text-center">
                               <button style={{ borderRadius: "30px" }} type="submit">Log In</button>
                             </div>
@@ -278,9 +293,9 @@ function Body({ contract }) {
                     >
                       <i className="bi bi-easel flex-shrink-0"></i>
                       <div>
-                        <h4>
+                        <h3>
                           <a href="google.com" className="stretched-link">Secure Blockchain Storage</a>
-                        </h4>
+                        </h3>
                         <p> Immutable contracts enhance transparency and security.</p>
                       </div>
                     </motion.div>
@@ -291,7 +306,7 @@ function Body({ contract }) {
                     >
                       <i className="bi bi-patch-check flex-shrink-0"></i>
                       <div>
-                        <h4><a href="google.com" className="stretched-link">Decentralized Data Control</a></h4>
+                        <h3><a href="google.com" className="stretched-link">Decentralized Data Control</a></h3>
                         <p>Ensures privacy, limits unauthorized access, enhances security.</p>
                       </div>
                     </motion.div>
@@ -303,7 +318,7 @@ function Body({ contract }) {
 
                       <i className="bi bi-brightness-high flex-shrink-0"></i>
                       <div>
-                        <h4><a href="google.com" className="stretched-link">Verified Audit Trail</a></h4>
+                        <h3><a href="google.com" className="stretched-link">Verified Audit Trail</a></h3>
                         <p>Timestamps provide transparent, trackable contract histories.</p>
                       </div>
                     </motion.div>
@@ -315,7 +330,7 @@ function Body({ contract }) {
                     >
                       <i className="bi bi-brightness-high flex-shrink-0"></i>
                       <div>
-                        <h4><a href="google.com" className="stretched-link">Regulatory Compliance Automation</a></h4>
+                        <h3><a href="google.com" className="stretched-link">Regulatory Compliance Automation</a></h3>
                         <p>Enforces legal standards, minimizing risks.</p>
                       </div>
                     </motion.div>
@@ -331,17 +346,17 @@ function Body({ contract }) {
                 <ul className="nav nav-tabs row g-2 d-flex">
                   <li className="nav-item col-4">
                     <a href="google.com" className="nav-link active show" data-bs-toggle="tab" data-bs-target="#tab-1">
-                      <h4>Immutable Contract Storage</h4>
+                      <h3>Immutable Contract Storage</h3>
                     </a>
                   </li>
                   <li className="nav-item col-4">
                     <a className="nav-link" href="google.com" data-bs-toggle="tab" data-bs-target="#tab-2">
-                      <h4>Smart Contract Execution</h4>
+                      <h3>Smart Contract Execution</h3>
                     </a>
                   </li>
                   <li className="nav-item col-4">
                     <a className="nav-link" href="google.com" data-bs-toggle="tab" data-bs-target="#tab-3">
-                      <h4>Decentralized Access Control</h4>
+                      <h3>Decentralized Access Control</h3>
                     </a>
                   </li>
                 </ul>
