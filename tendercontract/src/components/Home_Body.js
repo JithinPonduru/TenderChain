@@ -6,7 +6,10 @@ import 'aos/dist/aos.css';
 
 // cabin number 32 2nd floor
 
-function Body({contract}) {
+function Body({ contract }) {
+
+  const [alert, setalert] = useState(false);
+  
 
   async function deploycontract(e) {
     e.preventDefault();
@@ -14,35 +17,48 @@ function Body({contract}) {
       console.log("Entered")
       const name = document.querySelector('#name').value;
       const email = document.querySelector('#email').value;
-      const Country = document.querySelector('#Country').value;
+      const password = document.querySelector('#password').value;
+      const Cpassword = document.querySelector('#Cpassword').value;
+      const Country = document.querySelector('#country').value;
       const phone = document.querySelector('#phone').value;
-  
+
       // Assuming `contract` is passed as a prop to the component
-      const transaction = await contract.addUser(name, email, Country, phone);
-      await transaction.wait();
-  
-      // Set divzithin state to true after successful transaction
-      setdivzithin(true);
-  
+      if (password !== Cpassword) {
+        setalert(true);
+      }
+      else {
+        const transaction = await contract.addUser(name, email, Country, password, phone);
+        await transaction.wait();
+      }
 
     } catch (error) {
       console.log(error);
     }
   };
-  
 
 
-
-
-
-
-
-  const [divzithin, setdivzithin] = useState(false);
-
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-    setdivzithin(true);
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+  
+    // Retrieve hashed password from the contract
+    const hashedPassword = await contract.getPassword(email);
+  
+    // Validate if the email exists in the mapping
+    if (hashedPassword === '') {
+      console.log('Email does not exist');
+      return;
+    }
+  
+    // Validate the password
+    if (hashedPassword === password) {
+      console.log('Login Success');
+    } else {
+      console.log('Incorrect password');
+    }
   }
+  
 
   useEffect(() => {
     AOS.init({ duration: 2000 });
@@ -190,44 +206,51 @@ function Body({contract}) {
                       </h2>
                       <p id="form-type">{formName === 'signup-form' ? 'Sign Up' : 'Log In'}</p>
                       <div id="signup-form" style={{ display: formName === 'signup-form' ? 'block' : 'none' }}>
-                        <form  onSubmit={deploycontract} className="php-email-form">
+                        <form onSubmit={deploycontract} className="php-email-form">
                           <div className="row gy-3">
                             <div className="col-md-12">
-                              <input type="text" id="name" className="form-control" placeholder="Name" required style={{ borderRadius: "30px" }} />
-                            </div>
-                            <div className="col-md-12 ">
-                              <input type="email" className="form-control" id="email" placeholder="Email" required style={{ borderRadius: "30px" }} />
-                            </div>
-                            <div className="col-md-12 ">
-                              <input type="text" className="form-control" id="Country" placeholder="Country" required style={{ borderRadius: "30px" }} />
+                              <input type="text" id="name" className="form-control" placeholder="Name" required style={{ borderRadius: "30px" }} autoComplete="off" />
                             </div>
                             <div className="col-md-12">
-                              <input type="text" className="form-control" id="phone" placeholder="Phone" required style={{ borderRadius: "30px" }} />
+                              <input type="email" className="form-control" id="email" placeholder="Email" required style={{ borderRadius: "30px" }} autoComplete="off" />
+                            </div>
+                            <div className="col-md-12">
+                              <input type="password" className="form-control" id="password" placeholder="Password" required style={{ borderRadius: "30px" }} autoComplete="off" />
+                            </div>
+                            <div className="col-md-12">
+                              <input type="password" className="form-control" id="Cpassword" placeholder="Conform Password" required style={{ borderRadius: "30px" }} autoComplete="off" />
+                            </div>
+                            <div className="col-md-12">
+                              <input type="text" className="form-control" id="country" placeholder="Country" required style={{ borderRadius: "30px" }} autoComplete="off" />
+                            </div>
+                            <div className="col-md-12">
+                              <input type="text" className="form-control" id="phone" placeholder="Phone" required style={{ borderRadius: "30px" }} autoComplete="off" />
+                            </div>
+                            <div id='alertwp'>
+                              {alert ? <div style={{ color: 'red' }}>Password dosent match</div> : null}
                             </div>
                             <div className="col-md-12 text-center">
                               <button style={{ borderRadius: "50px" }} type="submit">Sign Up</button>
                             </div>
                           </div>
                         </form>
+
                       </div>
 
                       <div id="login-form" style={{ display: formName === 'login-form' ? 'block' : 'none' }}>
                         <form action="/tender" onSubmit={onSubmit} className="php-email-form">
                           <div className="row gy-3">
                             <div className="col-md-12 ">
-                              <input type="email" className="form-control" name="loginid" placeholder="example@gmail.com" required style={{ borderRadius: "30px" }} />
+                              <input type="email" className="form-control" name="email" placeholder="email" required style={{ borderRadius: "30px" }} autoComplete="off" />
                             </div>
                             <div className="col-md-12">
-                              <input type="password" className="form-control" name="password" placeholder="Password" required style={{ borderRadius: "30px" }} />
+                              <input type="password" className="form-control" name="password" placeholder="Password" required style={{ borderRadius: "30px" }} autoComplete="off" />
                             </div>
                             <div className="col-md-12 text-center">
                               <button style={{ borderRadius: "30px" }} type="submit">Log In</button>
                             </div>
                           </div>
                         </form>
-                        <div id='zithin'>
-                          {divzithin && <h1> Hello Zithin</h1>}
-                        </div>
                       </div>
                     </div>
                   </motion.div>

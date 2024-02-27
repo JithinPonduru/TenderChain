@@ -68,14 +68,16 @@ function BodyofTenderPage({ contract }) {
                     <div className="row">
                         <h4>Account</h4>
                         <div className="input-group input-group-icon">
-                            <input id='Title' type="text" placeholder="Title of the Project" style={{ borderRadius: '10px' }} required />
+                            <input id='Title' type="text" placeholder="Title of the Project" style={{ borderRadius: '10px' }} required
+                                autoComplete='off' />
                             <div className="input-icon">
                                 <i className="fa fa-user" style={{ marginLeft: '15px' }} ></i>
                             </div>
                         </div>
                         <h4>Discription</h4>
                         <div className="input-group input-group-icon">
-                            <input id='Details' type="text" placeholder="Discription of the Project" style={{ borderRadius: '10px' }} required />
+                            <input id='Details' type="text" placeholder="Discription of the Project" style={{ borderRadius: '10px' }} required
+                                autoComplete='off' />
                             <div className="input-icon">
                                 <i class="fa-solid fa-info" style={{ marginLeft: '15px' }}></i>
                             </div>
@@ -92,6 +94,7 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="2"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                                 <div className="col-third">
@@ -103,6 +106,7 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="2"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                                 <div className="col-third">
@@ -113,6 +117,7 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="4"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                             </div>
@@ -129,6 +134,7 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="2"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                                 <div className="col-third">
@@ -140,6 +146,7 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="2"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                                 <div className="col-third">
@@ -150,6 +157,7 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="4"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                             </div>
@@ -166,6 +174,7 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="2"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                                 <div className="col-third">
@@ -177,6 +186,7 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="2"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                                 <div className="col-third">
@@ -187,18 +197,21 @@ function BodyofTenderPage({ contract }) {
                                         maxLength="4"
                                         onInput={handleInput}
                                         required
+                                        autoComplete='off'
                                     />
                                 </div>
                             </div>
                         </div>
 
                     </div>
+
                     <div className="row">
 
                         <div className="col-half">
                             <h4>Organisation Name</h4>
                             <div className="input-group">
-                                <input id="OrganisationName" type="text" placeholder="Organisation Name" required />
+                                <input id="OrganisationName" type="text" placeholder="Organisation Name" required
+                                    autoComplete='off' />
                             </div>
                         </div>
                     </div>
@@ -206,7 +219,8 @@ function BodyofTenderPage({ contract }) {
                     <div className="row">
                         <h4>Terms and Conditions</h4>
                         <div className="input-group">
-                            <input type='checkbox' id='terms' required style={{ marginRight: '1%' }} />
+                            <input type='checkbox' id='terms' required
+                                autoComplete='off' style={{ marginRight: '1%' }} />
                             <label htmlFor="terms">I acknowledge that I have read the privacy policy and that I agree to the terms and conditions set out by Organization Name for this service.</label>
                         </div>
                     </div>
@@ -214,8 +228,8 @@ function BodyofTenderPage({ contract }) {
                     <div id="result"></div>
                 </form>
 
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 

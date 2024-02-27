@@ -18,7 +18,7 @@ function Footer() {
                                             SRM UNIVERSITY AP <br />
                                             AMARAVATHI, ANDHRA PRADESH <br />
                                             <strong>Phone:</strong> +91 9347XXXX30 <br />
-                                            <strong>Email:</strong> zithinchowdhary159898@gmail.com
+                                            <strong>Email:</strong> tenderchainsupportteam@gmail.com <br />
                                         </p>
 
                                         <div className="social-links d-flex mt-3">
@@ -33,7 +33,7 @@ function Footer() {
                                 <div className="col-lg-4 col-md-3 footer-links">
                                     <h4>Useful Links</h4>
                                     <ul>
-                                        <li><a href="#Header1">Home</a></li>
+                                        <li><a href="/">Home</a></li>
                                         <li><a href="google.com">About us</a></li>
                                         <li><a href="google.com">Services</a></li>
                                         <li><a href="google.com">Terms of service</a></li>

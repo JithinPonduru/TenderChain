@@ -32,24 +32,26 @@ const Memos = ({ state }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {memos.map((memo, index) => (
-                        <React.Fragment key={index}>
-                            <tr>
-                                <td style={{ padding: '8px' }}>{memo[0].toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo[1].toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo[2].toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo[3].toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo[4].toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo[5].toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo[6].toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo[7].toString()}</td>
-                                <td style={{ padding: '8px' }}>{memo[8].toString()}</td>
-                            </tr>
-                            <tr>
-                                <td colSpan="9" style={{ borderBottom: '2px solid #000' }}></td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
+                    { 
+                        memos.map((memo, index) => (
+                            <React.Fragment key={index}>
+                                <tr>
+                                    <td style={{ padding: '8px' }}>{memo[0].toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo[1].toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo[2].toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo[3].toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo[4].toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo[5].toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo[6].toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo[7].toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo[8].toString()}</td>
+                                </tr>
+                                <tr>
+                                    <td colSpan="9" style={{ borderBottom: '2px solid #000' }}></td>
+                                </tr>
+                            </React.Fragment>
+                        ))
+                    }
                 </tbody>
             </table>
         </div>
