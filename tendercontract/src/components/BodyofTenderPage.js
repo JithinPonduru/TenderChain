@@ -79,7 +79,7 @@ function BodyofTenderPage({ contract }) {
                             <input id='Details' type="text" placeholder="Discription of the Project" style={{ borderRadius: '10px' }} required
                                 autoComplete='off' />
                             <div className="input-icon">
-                                <i class="fa-solid fa-info" style={{ marginLeft: '15px' }}></i>
+                                <i className="fa-solid fa-info" style={{ marginLeft: '15px' }}></i>
                             </div>
                         </div>
                         <div className="col-half">

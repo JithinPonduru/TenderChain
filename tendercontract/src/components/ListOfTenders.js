@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import React from 'react';
 
-
-// The way i implemented this in such a way that the memos that are only related to the current user will be displayed like current metamask id is 0x6a831ce70f413B4c220d55fCeA1a6449F63687e6
 const Memos = ({ state }) => {
     const [memos, setMemos] = useState([]);
     const { contract } = state;
@@ -10,9 +8,20 @@ const Memos = ({ state }) => {
     useEffect(() => {
         const fetchMemos = async () => {
             if (contract) {
-                const memos = await contract.getMemo('jithin_ponduru@srmap.edu.in');
-                setMemos(memos); // Set memos state directly
-                console.log(memos[0].OrganizationName);
+                const memos = await contract.listOfContracts();
+                // Convert BigNumber values to strings
+                const formattedMemos = memos.map(memo => ({
+                    tenderid: memo.tenderid.toString(),
+                    status: memo.status.toString(),
+                    title: memo.title.toString(),
+                    details: memo.details.toString(),
+                    DeployedTime: memo.DeployedTime.toString(),
+                    Startdate: memo.Startdate.toString(),
+                    Lastdate: memo.Lastdate.toString(),
+                    BidopeningDate: memo.BidopeningDate.toString(),
+                    OrganizationName: memo.OrganizationName.toString()
+                }));
+                setMemos(formattedMemos);
             }
         };
         fetchMemos();
@@ -35,11 +44,11 @@ const Memos = ({ state }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                    { 
                         memos.map((memo, index) => (
                             <React.Fragment key={index}>
                                 <tr>
-                                    <td style={{ padding: '8px' }}>{memo.tenderid.toString()}</td>
+                                    <td style={{ padding: '8px' }}>{memo.tenderid}</td>
                                     <td style={{ padding: '8px' }}>{memo.status}</td>
                                     <td style={{ padding: '8px' }}>{memo.title}</td>
                                     <td style={{ padding: '8px' }}>{memo.details}</td>
