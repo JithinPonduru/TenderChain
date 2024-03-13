@@ -3,6 +3,16 @@ pragma solidity 0.8.15;
 
 contract DeployerApplication {
 
+    address private owner ;
+
+    constructor(){
+        owner = msg.sender;
+    }
+
+    function getOwner() public view returns(address)  {
+        return owner;
+    }
+
     struct ListObjects {
         uint tenderid;
         string status;
