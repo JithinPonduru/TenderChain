@@ -1,23 +1,24 @@
-import { useEffect, useState } from "react";
-import React from 'react';
+import React, { useEffect, useState } from "react";
 
-
-const Memos = ({ state }) => {
+const Memos = ({ state, userEmail }) => {
     const [memos, setMemos] = useState([]);
     const { contract } = state;
 
     useEffect(() => {
         const fetchMemos = async () => {
-            if (contract) {
-                const memos = await contract.getMemo();
-                setMemos(memos);
+            if (contract && userEmail) {
+                try {
+                    const memos = await contract.getMemo(userEmail);
+                    setMemos(memos);
+                    console.log(memos[0].OrganizationName);
+                } catch (error) {
+                    console.error("Error fetching memos:", error);
+                }
             }
         };
         fetchMemos();
-    }, [contract]);
+    }, [contract, userEmail]);
 
-
-    
     return (
         <div style={{ borderRadius: '15px', margin: '15px 35px', overflowX: 'auto', backgroundColor: '#e5e5e5' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center' }}>
@@ -38,7 +39,7 @@ const Memos = ({ state }) => {
                     {memos.map((memo, index) => (
                         <React.Fragment key={index}>
                             <tr>
-                                <td style={{ padding: '8px' }}>{(memo.tenderid).toString()}</td>
+                                <td style={{ padding: '8px' }}>{memo.tenderid.toString()}</td>
                                 <td style={{ padding: '8px' }}>{memo.status}</td>
                                 <td style={{ padding: '8px' }}>{memo.title}</td>
                                 <td style={{ padding: '8px' }}>{memo.details}</td>
@@ -46,7 +47,7 @@ const Memos = ({ state }) => {
                                 <td style={{ padding: '8px' }}>{memo.Startdate}</td>
                                 <td style={{ padding: '8px' }}>{memo.Lastdate}</td>
                                 <td style={{ padding: '8px' }}>{memo.BidopeningDate}</td>
-                                <td style={{ padding: '8px' }}>{memo.OrgainsationName}</td>
+                                <td style={{ padding: '8px' }}>{memo.OrganizationName}</td>
                             </tr>
                             <tr>
                                 <td colSpan="9" style={{ borderBottom: '2px solid #000' }}></td>
@@ -57,9 +58,6 @@ const Memos = ({ state }) => {
             </table>
         </div>
     );
-    
-
-
 };
 
 export default Memos;
