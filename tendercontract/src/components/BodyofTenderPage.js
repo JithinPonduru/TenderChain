@@ -29,6 +29,8 @@ function BodyofTenderPage({ contract }) {
   
         const status = startDate <= currentDate && lastDate >= currentDate ? "Active" : "Inactive";
   
+        const MinimumBiddingAmount = document.querySelector("#MinimumBiddingAmount").value;
+
         const transaction = await contract.deployContract(
           tenderid.toString(),
           title.toString(),
@@ -38,6 +40,7 @@ function BodyofTenderPage({ contract }) {
           startDate.toString(),
           lastDate.toString(),
           bidOpeningDate.toString(),
+          MinimumBiddingAmount.toString(),
           organisationName.toString()
         );
         await transaction.wait();
@@ -319,6 +322,21 @@ function BodyofTenderPage({ contract }) {
                   style={{ marginRight: "10px" }}
                   maxLength="2"
                   onInput={handleInput}
+                  required
+                  autoComplete="off"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-half">
+              <h4>Minimum Bidding Amount</h4>
+              <div className="input-group">
+                <input
+                  id="MinimumBiddingAmount"
+                  type="Number"
+                  placeholder="₹"
                   required
                   autoComplete="off"
                 />

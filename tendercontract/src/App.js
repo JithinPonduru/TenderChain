@@ -18,7 +18,8 @@ function App() {
   // const contractAddress = "0xa06e58ed4ca7f532372e2cBd5c5DB3dd160da486";
   // const contractAddress = "0x306f9A3948C2B67B1e5B25e652676792E3dDbF41";
   // const contractAddress = "0x245d3Bd51c63d38D8f73FdFcd687B676C40eF589";
-  const contractAddress = "0x8214f754EdbD3265B86c8a93cDE7676460e44636";
+  // const contractAddress = "0x8214f754EdbD3265B86c8a93cDE7676460e44636";
+  const contractAddress = "0x1e0d0EAD03E546ade6648F634a9ecF740CB6d7Ba";
   const [walletState, setWalletState] = useState({
     provider: null,
     signer: null,
