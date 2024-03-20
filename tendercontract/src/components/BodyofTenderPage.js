@@ -6,61 +6,97 @@ function generateTenderId() {
   return parseInt(timestamp + random.toString().padStart(5, "0")); // Combine and ensure 10 digits
 }
 function BodyofTenderPage({ contract }) {
-    const handleInput = (e) => {
-      const input = e.target;
-      input.value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
-    };
-  
-    const currentDate = new Date();
-  
-    const deployContract = async (e) => {
-      e.preventDefault();
-      try {
-        const tenderid = generateTenderId();
-        const dateTimeString = currentDate.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-        const title = document.querySelector("#Title").value;
-        const details = document.querySelector("#Details").value;
-  
-        const startDate = getDateTime("#startYYYY", "#startMM", "#startDD", "#StartTimeHrs", "#StartTimeMins");
-        const lastDate = getDateTime("#LastYYYY", "#LastMM", "#LastDD", "#LastTimeHrs", "#LastTimeMins");
-        const bidOpeningDate = getDateTime("#BiddingYYYY", "#BiddingMM", "#BiddingDD", "#BiddingTimeHrs", "#BiddingTimeMins");
-  
-        const organisationName = document.querySelector("#OrganisationName").value;
-  
-        const status = startDate <= currentDate && lastDate >= currentDate ? "Active" : "Inactive";
-  
-        const MinimumBiddingAmount = document.querySelector("#MinimumBiddingAmount").value;
+  const handleInput = (e) => {
+    const input = e.target;
+    input.value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
+  };
 
-        const transaction = await contract.deployContract(
-          tenderid.toString(),
-          title.toString(),
-          status.toString(),
-          details.toString(),
-          dateTimeString.toString(),
-          startDate.toString(),
-          lastDate.toString(),
-          bidOpeningDate.toString(),
-          MinimumBiddingAmount.toString(),
-          organisationName.toString()
-        );
-        await transaction.wait();
-      } catch (error) {
-        console.error(error);
-        document.querySelector(
-          "#result"
-        ).innerHTML = `<h3>Error: ${error.message}</h3>`;
-      }
-    };
-  
-    const getDateTime = (yearId, monthId, dayId, hourId, minuteId) => {
-      const year = document.querySelector(yearId).value;
-      const month = document.querySelector(monthId).value; // Months are zero-based
-      const day = document.querySelector(dayId).value;
-      const hour = document.querySelector(hourId).value;
-      const minute = document.querySelector(minuteId).value;
-      const temp = new Date(year, month, day, hour, minute);
-      return temp.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-    };
+  const currentDate = new Date();
+
+  const deployContract = async (e) => {
+    e.preventDefault();
+    try {
+      const tenderid = generateTenderId();
+      const dateTimeString = currentDate.toLocaleString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      const title = document.querySelector("#Title").value;
+      const details = document.querySelector("#Details").value;
+
+      const startDate = getDateTime(
+        "#startYYYY",
+        "#startMM",
+        "#startDD",
+        "#StartTimeHrs",
+        "#StartTimeMins"
+      );
+      const lastDate = getDateTime(
+        "#LastYYYY",
+        "#LastMM",
+        "#LastDD",
+        "#LastTimeHrs",
+        "#LastTimeMins"
+      );
+      const bidOpeningDate = getDateTime(
+        "#BiddingYYYY",
+        "#BiddingMM",
+        "#BiddingDD",
+        "#BiddingTimeHrs",
+        "#BiddingTimeMins"
+      );
+
+      const organisationName =
+        document.querySelector("#OrganisationName").value;
+
+      const status =
+        startDate <= currentDate && lastDate >= currentDate
+          ? "Active"
+          : "Inactive";
+
+      const MinimumBiddingAmount = document.querySelector(
+        "#MinimumBiddingAmount"
+      ).value;
+
+      const transaction = await contract.deployContract(
+        tenderid.toString(),
+        title.toString(),
+        status.toString(),
+        details.toString(),
+        dateTimeString.toString(),
+        startDate.toString(),
+        lastDate.toString(),
+        bidOpeningDate.toString(),
+        MinimumBiddingAmount.toString(),
+        organisationName.toString()
+      );
+      await transaction.wait();
+    } catch (error) {
+      console.error(error);
+      document.querySelector(
+        "#result"
+      ).innerHTML = `<h3>Error: ${error.message}</h3>`;
+    }
+  };
+
+  const getDateTime = (yearId, monthId, dayId, hourId, minuteId) => {
+    const year = document.querySelector(yearId).value;
+    const month = document.querySelector(monthId).value; // Months are zero-based
+    const day = document.querySelector(dayId).value;
+    const hour = document.querySelector(hourId).value;
+    const minute = document.querySelector(minuteId).value;
+    const temp = new Date(year, month, day, hour, minute);
+    return temp.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   return (
     <div className="tenderinput">
@@ -89,17 +125,10 @@ function BodyofTenderPage({ contract }) {
               </div>
             </div>
             <h4>Discription</h4>
-            <div className="input-group" style={{ height: "100px" }}>
-              <i
-                className="fa-solid fa-info"
-                style={{
-                  position: "absolute",
-                  zIndex: "1",
-                  top: "10px",
-                  left: "5px",
-                }}
-              ></i>
-
+            <div
+              className="input-group input-group-icon"
+              style={{ position: "relative" }}
+            >
               <input
                 id="Details"
                 type="text"
@@ -107,14 +136,33 @@ function BodyofTenderPage({ contract }) {
                 placeholder="Description of the Project"
                 style={{
                   borderRadius: "10px",
-                  paddingLeft: "30px",
+                  // paddingLeft: "50px", // Increased paddingLeft to accommodate the icon
                   textIndent: "30px",
                   height: "100px",
                 }}
                 required
                 autoComplete="off"
               />
+              <div
+                className="input-icon"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  marginLeft: "17px",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  paddingLeft: "15px",
+                }}
+              >
+                <i
+                  className="fa-solid fa-info"
+                  style={{ fontSize: "1.5rem" }}
+                ></i>
+              </div>
             </div>
+
             <div className="col-half">
               <h4>Start Date</h4>
               <div className="input-group">

@@ -5,6 +5,7 @@ import { ethers } from "ethers";
 import TenderPage from "./components/Tender_Page.js";
 import ListPage from "./components/ListPage.js";
 import HomePage from "./components/Home_page.js";
+import DetailPage from "./components/DetailPage.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
   // const contractAddress = "0x306f9A3948C2B67B1e5B25e652676792E3dDbF41";
   // const contractAddress = "0x245d3Bd51c63d38D8f73FdFcd687B676C40eF589";
   // const contractAddress = "0x8214f754EdbD3265B86c8a93cDE7676460e44636";
-  const contractAddress = "0x1e0d0EAD03E546ade6648F634a9ecF740CB6d7Ba";
+//   const contractAddress = "0x1e0d0EAD03E546ade6648F634a9ecF740CB6d7Ba";
+  const contractAddress = "0x94Ee09a2B5d12C73CF99834a59b16aDcDcD7B1E2";
   const [walletState, setWalletState] = useState({
     provider: null,
     signer: null,
@@ -76,6 +78,12 @@ function App() {
             />
           }
         />
+
+        <Route
+          path="/contract/:id"
+          element={<DetailPage state={walletState} contract = {walletState.contract} />}
+        />
+
       </Routes>
     </Router>
   );

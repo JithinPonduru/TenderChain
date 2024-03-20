@@ -31,13 +31,13 @@ contract DeployerApplication {
         string Email;
         string Country;
         string PhoneNo;
-        address HashofUser;
     }
 
     struct Applicant {
-        string Name;
+        uint TenderID;
         string PhoneNO;
         uint BiddingPrice;
+        string Name;
         string ApplicantEmail;
     }
 
@@ -50,7 +50,7 @@ contract DeployerApplication {
     mapping(address => Users) private user;
     mapping(address => bool) private userExists; 
 
-    event UserAdded(address indexed userAddress, string name, string email, string country, string phoneNumber , address HashofUser);
+    event UserAdded(address indexed userAddress, string name, string email, string country, string phoneNumber);
     event ContractDeployed(string indexed UserEmail, uint tenderid, string title, string status, string details, string deployedTime, string startDate, string lastDate, string bidOpeningDate,uint minimumBiddingPrice, string organizationName);
     event ApplicantApplied(uint tenderid, string name, string phoneNo, uint biddingPrice,string ApplicantEmail);
 
@@ -64,12 +64,12 @@ contract DeployerApplication {
         require(userAddressesByEmail[_email] == address(0), "Email address already exists");
 
         address UserAddress = msg.sender;
-        user[UserAddress] = Users(_name, _email, _country, _phoneNumber , UserAddress);
+        user[UserAddress] = Users(_name, _email, _country, _phoneNumber);
         userAddressesByEmail[_email] = UserAddress;
         userExists[UserAddress] = true;
         UserEmailPassword[_email] = _password;
 
-        emit UserAdded(UserAddress, _name, _email, _country, _phoneNumber , UserAddress);
+        emit UserAdded(UserAddress, _name, _email, _country, _phoneNumber);
     }
 
     function deployContract(
@@ -100,6 +100,18 @@ contract DeployerApplication {
 
         return UserContracts[_email];
     }
+    
+    function getMemoByID(uint _TenderID) public view returns (ListObjects memory) {
+        require(TenderIdExits[_TenderID], "TenderID Does Not Exist");
+
+        for (uint i = 0; i < TotalContracts.length; i++) {
+            if (TotalContracts[i].tenderid == _TenderID) {
+                return TotalContracts[i];
+            }
+        }
+
+        revert("Tender not found");
+    }
 
     function getPassword(string memory _email) public view returns (string memory) {
         return UserEmailPassword[_email];
@@ -113,42 +125,41 @@ contract DeployerApplication {
         return TotalContracts;
     }
 
-function Apply(uint _TenderId, string memory _Name, string memory _PhoneNO, uint _BiddingPrice, string memory _ApplicantEmail) public {
-    require(TenderIdExits[_TenderId] == true, "Tender id does not exist");
+    function Apply(uint _TenderId, string memory _Name, string memory _PhoneNO, uint _BiddingPrice, string memory _ApplicantEmail) public {
+        require(TenderIdExits[_TenderId], "Tender id does not exist");
 
-    ListObjects[] storage userContracts = UserContracts[user[msg.sender].Email];
+        ListObjects[] storage userContracts = UserContracts[user[msg.sender].Email];
 
-    // Find the contract with the matching tenderid
-    uint contractIndex = 0;
-    bool found = false;
-    for (uint i = 0; i < userContracts.length; i++) {
-        if (userContracts[i].tenderid == _TenderId) {
-            contractIndex = i;
-            found = true;
-            break;
+        // Find the contract with the matching tenderid
+        uint contractIndex = userContracts.length;
+        bool found = false;
+        for (uint i = 0; i < userContracts.length; i++) {
+            if (userContracts[i].tenderid == _TenderId) {
+                contractIndex = i;
+                found = true;
+                break;
+            }
         }
-    }
-    require(found, "User does not have this tender");
+        require(found, "User does not have this tender");
 
-    uint minimumBiddingPrice = userContracts[contractIndex].minimumBiddingPrice;
-    require(_BiddingPrice >= minimumBiddingPrice, "Bidding amount is less than minimum bidding price");
+        uint minimumBiddingPrice = userContracts[contractIndex].minimumBiddingPrice;
+        require(_BiddingPrice >= minimumBiddingPrice, "Bidding amount is less than minimum bidding price");
 
-    // Check if the email is registered for this contract
-    bool emailRegistered = false;
-    for (uint i = 0; i < Applicants[_TenderId].length; i++) {
-        if (keccak256(abi.encodePacked(Applicants[_TenderId][i].ApplicantEmail)) == keccak256(abi.encodePacked(_ApplicantEmail))) {
-            emailRegistered = true;
-            break;
+        // Check if the email is registered for this contract
+        bool emailRegistered = false;
+        for (uint i = 0; i < Applicants[_TenderId].length; i++) {
+            if (keccak256(abi.encodePacked(Applicants[_TenderId][i].ApplicantEmail)) == keccak256(abi.encodePacked(_ApplicantEmail))) {
+                emailRegistered = true;
+                break;
+            }
         }
+        require(!emailRegistered, "Email is already registered for this contract");
+
+        Applicant memory newApplicant = Applicant(_TenderId, _PhoneNO, _BiddingPrice,_Name, _ApplicantEmail);
+        Applicants[_TenderId].push(newApplicant);
+
+        emit ApplicantApplied(_TenderId, _Name, _PhoneNO, _BiddingPrice, _ApplicantEmail);
     }
-    require(!emailRegistered, "Email is already registered for this contract");
-
-    Applicant memory newApplicant = Applicant(_Name, _PhoneNO, _BiddingPrice, _ApplicantEmail);
-    Applicants[_TenderId].push(newApplicant);
-
-    emit ApplicantApplied(_TenderId, _Name, _PhoneNO, _BiddingPrice, _ApplicantEmail);
-}
-
 
     function getApplicants(uint _TenderId) public view returns (Applicant[] memory) {
         return Applicants[_TenderId];
