@@ -1,15 +1,41 @@
-import { useEffect, useState } from "react";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 
 const Memos = ({ state }) => {
   const [memos, setMemos] = useState([]);
   const { contract } = state;
 
+  const ApplyforContract = async () => {
+    const TenderID = (document.querySelector("#TenderID").value).toString();
+    const PhoneNo = document.querySelector("#phoneno").value.toString();
+    const BiddingPrice = (document.querySelector("#BiddingPrice").value).toString();
+    const Name = document.querySelector("#Name").value.toString();
+    const email = document.querySelector("#email").value.toString();
+    
+    if (contract) {
+      try {
+        const transaction = await contract.Apply(
+          TenderID,
+          Name,
+          PhoneNo,
+          BiddingPrice,
+          email,
+          );
+          console.log('Entered ApplyforContract function')
+        await transaction.wait();
+      } catch (error) {
+        console.error(error);
+        document.querySelector(
+          "#result"
+        ).innerHTML = `<h3>Error: ${error.message}</h3>`;
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchMemos = async () => {
       if (contract) {
         const memos = await contract.listOfContracts();
-        // Convert BigNumber values to strings
         const formattedMemos = memos.map((memo) => ({
           tenderid: memo.tenderid.toString(),
           status: memo.status.toString(),
@@ -26,6 +52,20 @@ const Memos = ({ state }) => {
     };
     fetchMemos();
   }, [contract]);
+
+  const showPopup = (index) => {
+    let popup = document.getElementById(`popup-${index}`);
+    if (popup) {
+      popup.classList.add("open-popup");
+    }
+  };
+
+  const hidePopup = (index) => {
+    let popup = document.getElementById(`popup-${index}`);
+    if (popup) {
+      popup.classList.remove("open-popup");
+    }
+  };
 
   return (
     <div
@@ -60,29 +100,64 @@ const Memos = ({ state }) => {
         <tbody>
           {memos.map((memo, index) => (
             <React.Fragment key={index}>
-              <tr  colSpan="10"
-                  style={{
-                    textAlign: "center",
-                    borderBottom: "2px solid #000",
-                  }}
-                >
-                <td style={{ padding: "8px" }}>{memo.tenderid}</td>
+              <tr
+                colSpan="10"
+                style={{
+                  textAlign: "center",
+                  borderBottom: "2px solid #000",
+                }}
+              >
+                <td style={{ padding: "8px" }}>{memo.tenderid.toString()}</td>
                 <td style={{ padding: "8px" }}>{memo.status}</td>
                 <td style={{ padding: "8px" }}>{memo.title}</td>
-                <td style={{ padding: "8px" }}>{<a href="details page">Read Project Details</a>}</td>
+                <td style={{ padding: "8px" }}>{memo.details}</td>
                 <td style={{ padding: "8px" }}>{memo.DeployedTime}</td>
                 <td style={{ padding: "8px" }}>{memo.Startdate}</td>
                 <td style={{ padding: "8px" }}>{memo.Lastdate}</td>
                 <td style={{ padding: "8px" }}>{memo.BidopeningDate}</td>
                 <td style={{ padding: "8px" }}>{memo.OrganizationName}</td>
                 <td>
-                  <button
-                    type="button"
-                    class="btn btn-warning"
-                    style={{ margin: "8px" }}
-                  >
-                    Apply
-                  </button>
+                  <div className="container">
+                    <button
+                      type="button"
+                      className="btn btn-warning"
+                      style={{ margin: "8px" }}
+                      onClick={() => showPopup(index)}
+                    >
+                      Apply
+                    </button>
+                    <div className="popup" id={`popup-${index}`}>
+                      <form method="POST" action="/">
+
+                        <label className="poplabel">TENDERID</label>
+                        <input className="popinput" id= "TenderID" type="number" placeholder="Tender ID" />
+
+                        <label className="poplabel">Name</label>
+                        <input className="popinput" id="Name" placeholder="Name" />
+                        
+                        <label className="poplabel">Phone No</label>
+                        <input className="popinput" id = "phoneno" placeholder="+91XXXXXXXXXX" />
+
+                        <label className="poplabel">Bidding Price</label>
+                        <input className="popinput" id="BiddingPrice" type="number" placeholder="₹" />
+                        
+                        
+                        <label className="poplabel">Email</label>
+                        <input className="popinput" type = 'email' id= "email" placeholder="example@example.com" />
+                      </form>
+
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        style={{ margin: "8px" }}
+                        onClick={() => {
+                          ApplyforContract();
+                          hidePopup(index);
+                        }}
+                      >OK</button>
+                      <div id="result"></div>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </React.Fragment>
