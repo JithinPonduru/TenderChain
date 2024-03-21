@@ -61,10 +61,12 @@ function Body({ contract }) {
       console.log("Email does not exist");
       setexistemail(true);
     }
-    if (hashedPassword === password) {
+    if (hashedPassword === password ){
       console.log("Login Success");
       setUserEmail(email);
       setlogin(true);
+      sessionStorage.setItem('islogin', true);
+      console.log(sessionStorage.getItem('islogin'));
     } else {
       console.log("Incorrect password");
       setispasswordworng(true);
@@ -163,7 +165,7 @@ function Body({ contract }) {
                       <li>
                         <a href="google.com">Tenders by Organisation</a>
                       </li>
-                      {islogin ? (
+                      {islogin ||  sessionStorage.getItem('islogin') === 'true' ? (
                         <li>
                           <a href="/deployer">Contract Posting</a>
                         </li>

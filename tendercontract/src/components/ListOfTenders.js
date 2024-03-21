@@ -5,12 +5,14 @@ const Memos = ({ state }) => {
   const { contract } = state;
 
   const ApplyforContract = async () => {
-    const TenderID = (document.querySelector("#TenderID").value).toString();
+    const TenderID = document.querySelector("#TenderID").value.toString();
     const PhoneNo = document.querySelector("#phoneno").value.toString();
-    const BiddingPrice = (document.querySelector("#BiddingPrice").value).toString();
+    const BiddingPrice = document
+      .querySelector("#BiddingPrice")
+      .value.toString();
     const Name = document.querySelector("#Name").value.toString();
     const email = document.querySelector("#email").value.toString();
-    
+
     if (contract) {
       try {
         const transaction = await contract.Apply(
@@ -18,9 +20,9 @@ const Memos = ({ state }) => {
           Name,
           PhoneNo,
           BiddingPrice,
-          email,
-          );
-          console.log('Entered ApplyforContract function')
+          email
+        );
+        console.log("Entered ApplyforContract function");
         await transaction.wait();
       } catch (error) {
         console.error(error);
@@ -109,7 +111,9 @@ const Memos = ({ state }) => {
                 <td style={{ padding: "8px" }}>{memo.tenderid.toString()}</td>
                 <td style={{ padding: "8px" }}>{memo.status}</td>
                 <td style={{ padding: "8px" }}>{memo.title}</td>
-                <td style={{ padding: "8px" }}>{memo.details}</td>
+                <td style={{ padding: "8px" }}>
+                  <a href={`contract/${memo.tenderid}`}>{memo.details}</a>
+                </td>
                 <td style={{ padding: "8px" }}>{memo.DeployedTime}</td>
                 <td style={{ padding: "8px" }}>{memo.Startdate}</td>
                 <td style={{ padding: "8px" }}>{memo.Lastdate}</td>
@@ -127,22 +131,43 @@ const Memos = ({ state }) => {
                     </button>
                     <div className="popup" id={`popup-${index}`}>
                       <form method="POST" action="/">
-
                         <label className="poplabel">TENDERID</label>
-                        <input className="popinput" id= "TenderID" type="number" placeholder="Tender ID" />
+                        <input
+                          className="popinput"
+                          id="TenderID"
+                          type="number"
+                          placeholder="Tender ID"
+                        />
 
                         <label className="poplabel">Name</label>
-                        <input className="popinput" id="Name" placeholder="Name" />
-                        
+                        <input
+                          className="popinput"
+                          id="Name"
+                          placeholder="Name"
+                        />
+
                         <label className="poplabel">Phone No</label>
-                        <input className="popinput" id = "phoneno" placeholder="+91XXXXXXXXXX" />
+                        <input
+                          className="popinput"
+                          id="phoneno"
+                          placeholder="+91XXXXXXXXXX"
+                        />
 
                         <label className="poplabel">Bidding Price</label>
-                        <input className="popinput" id="BiddingPrice" type="number" placeholder="₹" />
-                        
-                        
+                        <input
+                          className="popinput"
+                          id="BiddingPrice"
+                          type="number"
+                          placeholder="₹"
+                        />
+
                         <label className="poplabel">Email</label>
-                        <input className="popinput" type = 'email' id= "email" placeholder="example@example.com" />
+                        <input
+                          className="popinput"
+                          type="email"
+                          id="email"
+                          placeholder="example@example.com"
+                        />
                       </form>
 
                       <button
@@ -153,7 +178,9 @@ const Memos = ({ state }) => {
                           ApplyforContract();
                           hidePopup(index);
                         }}
-                      >OK</button>
+                      >
+                        OK
+                      </button>
                       <div id="result"></div>
                     </div>
                   </div>
@@ -168,5 +195,3 @@ const Memos = ({ state }) => {
 };
 
 export default Memos;
-
-

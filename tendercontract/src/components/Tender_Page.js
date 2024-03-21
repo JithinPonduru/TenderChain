@@ -5,8 +5,9 @@ import Memos from './ContractList';
 import Footer from './Home_Footer';
 
 function TenderPage({ state, contract, email }) {
-  const [showMemos, setShowMemos] = useState(false);
-  console.log(email)  
+  sessionStorage.setItem('Verified', 'false');
+  sessionStorage.setItem('buttonClicked', 'false');
+  const [showMemos, setShowMemos] = useState(false);  
   const toggleMemos = () => {
     setShowMemos(!showMemos);
   };
@@ -15,7 +16,11 @@ function TenderPage({ state, contract, email }) {
     <>
       <Navbar />
       <BodyofTenderPage contract={contract} />
-      <button style={{marginLeft : '25%' , marginBottom : '2%' , width : '35%' }} onClick={toggleMemos} className="btn btn-warning">
+      <button
+        style={{ marginLeft: '25%', marginBottom: '2%', width: '35%' }}
+        onClick={toggleMemos}
+        className="btn btn-warning"
+      >
         {showMemos ? 'Hide Deployed Contracts' : 'Show Deployed Contracts'}
       </button>
       {showMemos && <Memos state={state} userEmail={email} />}

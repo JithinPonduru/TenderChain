@@ -4,6 +4,7 @@ import Footer from './Home_Footer.js';
 import Header from './Home_Header.js';
 
 function HomePage({contract}) {
+  sessionStorage.setItem('buttonClicked', 'false');
   return (
       <div>
         <Header />
