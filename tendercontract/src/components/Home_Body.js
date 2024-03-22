@@ -10,7 +10,8 @@ function Body({ contract }) {
   const [existemail, setexistemail] = useState(false);
   const [ispasswordworng, setispasswordworng] = useState(false);
   const [islogin, setlogin] = useState(false);
-  const [userEmail,setUserEmail] = useState("");
+  const [isSignup, setsignup] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   async function deploycontract(e) {
     e.preventDefault();
@@ -36,9 +37,9 @@ function Body({ contract }) {
             phone
           );
           await transaction.wait();
+          setsignup(true);
         }
-      }
-      else{
+      } else {
         console.log("Password is null");
       }
     } catch (error) {
@@ -51,8 +52,6 @@ function Body({ contract }) {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    
-
     // Retrieve hashed password from the contract
     const hashedPassword = await contract.getPassword(email);
 
@@ -60,13 +59,14 @@ function Body({ contract }) {
     if (hashedPassword === null) {
       console.log("Email does not exist");
       setexistemail(true);
+      console.log(existemail);
     }
-    if (hashedPassword === password ){
+    if (hashedPassword === password) {
       console.log("Login Success");
       setUserEmail(email);
       setlogin(true);
-      sessionStorage.setItem('islogin', true);
-      console.log(sessionStorage.getItem('islogin'));
+      sessionStorage.setItem("islogin", true);
+      console.log(sessionStorage.getItem("islogin"));
     } else {
       console.log("Incorrect password");
       setispasswordworng(true);
@@ -165,7 +165,8 @@ function Body({ contract }) {
                       <li>
                         <a href="google.com">Tenders by Organisation</a>
                       </li>
-                      {islogin ||  sessionStorage.getItem('islogin') === 'true' ? (
+                      {islogin ||
+                      sessionStorage.getItem("islogin") === "true" ? (
                         <li>
                           <a href="/deployer">Contract Posting</a>
                         </li>
@@ -423,12 +424,21 @@ function Body({ contract }) {
                                 autoComplete="off"
                               />
                             </div>
-                            <div id="alertwp">
+                            <div className="col-md-12">
                               {alert ? (
                                 <div style={{ color: "red" }}>
-                                  Password dosent match
+                                  Password doesn't match
+                                  </div>
+                              ): isSignup ? (
+                                <div style={{ color: "green" }}>
+                                  Signup Success
                                 </div>
-                              ) : null}
+                              ) : existemail ? (
+                                <div style={{ color: "red" }}>
+                                  Email already exist
+                                </div>
+                              ) : null
+                              }
                             </div>
                             <div className="col-md-12 text-center">
                               <button
@@ -480,7 +490,10 @@ function Body({ contract }) {
                               {islogin ? (
                                 <h3 style={{ color: "yellow" }}>
                                   Login Success
-                                  {sessionStorage.setItem('userEmail', userEmail)}
+                                  {sessionStorage.setItem(
+                                    "userEmail",
+                                    userEmail
+                                  )}
                                 </h3>
                               ) : existemail ? (
                                 <h3 style={{ color: "red" }}>
@@ -489,7 +502,6 @@ function Body({ contract }) {
                               ) : ispasswordworng ? (
                                 <h3 style={{ color: "red" }}>Password wrong</h3>
                               ) : null}
-                              
                             </div>
                             <div className="col-md-12 text-center">
                               <button

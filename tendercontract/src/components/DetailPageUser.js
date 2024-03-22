@@ -7,6 +7,7 @@ const DetailPage = ({ state }) => {
   const { contract } = state; // Destructure contract from state
   const [applicants, setApplicants] = useState([]);
   const [memo, setMemo] = useState(null);
+  const [stateofbutton, setStateOfButton] = useState('none');
 
   function showApplicants() {
     var x = document.getElementById("applicantsTable");
@@ -17,23 +18,13 @@ const DetailPage = ({ state }) => {
     }
   }
 
-  function showapplicantblock(){
-    const applicantblock  = document.getElementById('applicantblock');
-    if (sessionStorage.getItem('buttonClicked') === 'true') {
-      applicantblock.style.display = 'block';
-    }
-    else{
-      applicantblock.style.display = 'none';
-    }
-  }
-  console.log(document.getElementById('applicantblock'));
-  
-  
   useEffect(() => {
-    // showapplicantblock();
+    if(sessionStorage.getItem('buttonClicked') === 'true'){
+      setStateOfButton('table');
+    } else {
+      setStateOfButton('none');
+    }
   }, []);
-  
-
 
   useEffect(() => {
     const fetchMemoAndApplicants = async () => {
@@ -146,7 +137,7 @@ const DetailPage = ({ state }) => {
         </tbody>
       </table>
         
-      <div id="applicantblock">
+      <div id="applicantblock" style={{display : stateofbutton}} >
         <button onClick={showApplicants}>Show Applicants</button>
         <table
           id="applicantsTable"
@@ -201,3 +192,4 @@ const DetailPage = ({ state }) => {
   );
 };
 export default DetailPage;
+

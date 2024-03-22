@@ -112,7 +112,7 @@ const Memos = ({ state }) => {
                 <td style={{ padding: "8px" }}>{memo.status}</td>
                 <td style={{ padding: "8px" }}>{memo.title}</td>
                 <td style={{ padding: "8px" }}>
-                  <a href={`contract/${memo.tenderid}`}>{memo.details}</a>
+                  <a href={`contract/${memo.tenderid}`}>Details</a>
                 </td>
                 <td style={{ padding: "8px" }}>{memo.DeployedTime}</td>
                 <td style={{ padding: "8px" }}>{memo.Startdate}</td>
