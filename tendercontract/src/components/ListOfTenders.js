@@ -46,6 +46,7 @@ const Memos = ({ state }) => {
           Startdate: memo.Startdate.toString(),
           Lastdate: memo.Lastdate.toString(),
           BidopeningDate: memo.BidopeningDate.toString(),
+          minimumBiddingPrice: memo.minimumBiddingPrice.toString(),
           OrganizationName: memo.OrganizationName.toString(),
         }));
         setMemos(formattedMemos);
@@ -94,6 +95,7 @@ const Memos = ({ state }) => {
             <th style={{ padding: "8px" }}>Start Date</th>
             <th style={{ padding: "8px" }}>Last Date</th>
             <th style={{ padding: "8px" }}>Bid Opening Date</th>
+            <th style={{ padding: "8px" }}>Minimum Bidding Amount</th>
             <th style={{ padding: "8px" }}>Organisation Name</th>
             <th style={{ padding: "8px" }}>Apply</th>
           </tr>
@@ -118,6 +120,9 @@ const Memos = ({ state }) => {
                 <td style={{ padding: "8px" }}>{memo.Startdate}</td>
                 <td style={{ padding: "8px" }}>{memo.Lastdate}</td>
                 <td style={{ padding: "8px" }}>{memo.BidopeningDate}</td>
+                <td style={{ padding: "8px" }}>
+                  {memo.minimumBiddingPrice.toString()}
+                </td>
                 <td style={{ padding: "8px" }}>{memo.OrganizationName}</td>
                 <td>
                   <div className="container">

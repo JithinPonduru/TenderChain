@@ -53,7 +53,7 @@ function BodyofTenderPage({ contract }) {
         document.querySelector("#OrganisationName").value;
 
       const status =
-        startDate <= currentDate && lastDate >= currentDate
+        startDate <= new Date() && lastDate >= new Date()
           ? "Active"
           : "Inactive";
 
