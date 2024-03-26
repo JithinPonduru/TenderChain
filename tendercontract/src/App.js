@@ -9,7 +9,8 @@ import DetailPage from "./components/DetailPageUser.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  const contractAddress = "0x94Ee09a2B5d12C73CF99834a59b16aDcDcD7B1E2";
+  // const contractAddress = "0x94Ee09a2B5d12C73CF99834a59b16aDcDcD7B1E2";
+  const contractAddress = "0x6f82a17C16d3840232843cef19E0881bB48E7f93";
   const [walletState, setWalletState] = useState({
     provider: null,
     signer: null,
@@ -57,10 +58,7 @@ function App() {
         />
         <Route path="/tenders" element={<ListPage state={walletState} />} />
         <Route
-          path={
-            sessionStorage.getItem("islogin") === "true"
-              ? "/deployer"
-              : "/temp"}
+          path = '/deployer'
           element={
             <TenderPage
               state={walletState}

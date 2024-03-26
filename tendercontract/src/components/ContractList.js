@@ -25,10 +25,10 @@ const Memos = ({ state, userEmail }) => {
 
     const hashedPassword = await contract.getPassword(userEmail);
     const inputPassword = e.target.password.value;
-    if (hashedPassword === inputPassword  ) {
+    if (hashedPassword === inputPassword) {
       setShowDetails(true);
       sessionStorage.setItem("Verified", "true");
-      document.getElementById('PV').style.display = 'none';
+      document.getElementById("PV").style.display = "none";
     } else {
       alert("Incorrect password. Please try again.");
     }
@@ -40,16 +40,22 @@ const Memos = ({ state, userEmail }) => {
 
   return (
     <div>
-      <div id='PV'>
-      <form onSubmit={handlePasswordConfirmation}>
-        <label style={{color : 'white', margin : '1vh'}}>
-          Conform Your Self
-        <input type="password" name="password" style={{margin : '15px'}} />
-        </label> 
-        <button className="btn btn-warning" type="submit" style={{margin : '15px'}}>Submit</button>
-      </form>
+      <div id="PV">
+        <form onSubmit={handlePasswordConfirmation}>
+          <label style={{ color: "white", margin: "1vh" }}>
+            Confirm Yourself
+            <input type="password" name="password" style={{ margin: "15px" }} />
+          </label>
+          <button
+            className="btn btn-warning"
+            type="submit"
+            style={{ margin: "15px" }}
+          >
+            Submit
+          </button>
+        </form>
       </div>
-      {(showDetails)&& (
+      {showDetails && (
         <div
           style={{
             borderRadius: "15px",
@@ -89,9 +95,12 @@ const Memos = ({ state, userEmail }) => {
                     <td style={{ padding: "8px" }}>{memo.status}</td>
                     <td style={{ padding: "8px" }}>{memo.title}</td>
                     <td style={{ padding: "8px" }}>
-                      <a href={`contract/${memo.tenderid}`} onClick={handleDetailsClick}>Details</a>
-                      
-                       
+                      <a
+                        href={`contract/${memo.tenderid}`}
+                        onClick={handleDetailsClick}
+                      >
+                        Details
+                      </a>
                     </td>
                     <td style={{ padding: "8px" }}>{memo.DeployedTime}</td>
                     <td style={{ padding: "8px" }}>{memo.Startdate}</td>
@@ -103,10 +112,7 @@ const Memos = ({ state, userEmail }) => {
                     <td style={{ padding: "8px" }}>{memo.OrganizationName}</td>
                   </tr>
                   <tr>
-                    <td
-                      colSpan="9"
-                      style={{ borderBottom: "2px solid #000" }}
-                    ></td>
+                    <td colSpan="10" style={{ borderBottom: "2px solid #000" }}></td>
                   </tr>
                 </React.Fragment>
               ))}
