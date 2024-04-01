@@ -51,7 +51,7 @@ const DetailPage = ({ state }) => {
   sessionStorage.setItem('buttonClicked', 'false');
   return (
     <div>
-      <h1>Memo Details</h1>
+      <h1>Contract Details</h1>
       <table
         style={{
           border: "1px solid #ddd",
@@ -137,8 +137,8 @@ const DetailPage = ({ state }) => {
         </tbody>
       </table>
         
-      <div id="applicantblock" style={{display : stateofbutton}} >
-        <button onClick={showApplicants}>Show Applicants</button>
+      <div id="applicantblock" style={{display : stateofbutton , marginTop : '2%'}}>
+        <button onClick={showApplicants} >Show Applicants</button>
         <table
           id="applicantsTable"
           style={{
