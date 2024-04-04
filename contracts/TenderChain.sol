@@ -13,6 +13,7 @@ contract DeployerApplication {
         return owner;
     }
 
+
     struct ListObjects {
         uint tenderid;
         string status;
@@ -24,6 +25,7 @@ contract DeployerApplication {
         string BidopeningDate;
         uint minimumBiddingPrice;
         string OrganizationName;
+        bool accepted; // New field to track if the tender is accepted
     }
 
     struct Users {
@@ -48,7 +50,8 @@ contract DeployerApplication {
     mapping (uint => Applicant[]) private Applicants;
     ListObjects[] private TotalContracts;
     mapping(address => Users) private user;
-    mapping(address => bool) private userExists; 
+    mapping(address => bool) private userExists;
+    mapping (uint => bool) private tenderidAccepted;  
 
     event UserAdded(address indexed userAddress, string name, string email, string country, string phoneNumber);
     event ContractDeployed(string indexed UserEmail, uint tenderid, string title, string status, string details, string deployedTime, string startDate, string lastDate, string bidOpeningDate,uint minimumBiddingPrice, string organizationName);
@@ -87,7 +90,7 @@ contract DeployerApplication {
         require(userAddressesByEmail[user[msg.sender].Email] != address(0), "User does not exist");
 
         string memory UserEmail = user[msg.sender].Email;
-        ListObjects memory newContract = ListObjects(_tenderid, _status, _title, _details, _DeployedTime, _Startdate, _Lastdate, _BidopeningDate,_minimumBiddingPrice, _OrganizationName);
+        ListObjects memory newContract = ListObjects(_tenderid, _status, _title, _details, _DeployedTime, _Startdate, _Lastdate, _BidopeningDate,_minimumBiddingPrice, _OrganizationName, false); // Initialize accepted as false
         UserContracts[UserEmail].push(newContract);
         TotalContracts.push(newContract);
         TenderIdExits[_tenderid] = true;
@@ -159,6 +162,19 @@ contract DeployerApplication {
         Applicants[_TenderId].push(newApplicant);
 
         emit ApplicantApplied(_TenderId, _Name, _PhoneNO, _BiddingPrice, _ApplicantEmail);
+    }
+
+    function delete_contract(uint _tenderid) public {
+        require(!tenderidAccepted[_tenderid], "Tender already accepted");
+        tenderidAccepted[_tenderid] = true;
+
+        // Mark the tender as accepted in TotalContracts
+        for (uint i = 0; i < TotalContracts.length; i++) {
+            if (TotalContracts[i].tenderid == _tenderid) {
+                TotalContracts[i].accepted = true;
+                break;
+            }
+        }
     }
 
     function getApplicants(uint _TenderId) public view returns (Applicant[] memory) {

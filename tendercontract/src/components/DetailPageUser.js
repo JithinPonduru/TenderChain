@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const DetailPage = ({ state }) => {
-  
   const { id } = useParams(); // Get the ID from the URL
   const { contract } = state; // Destructure contract from state
   const [applicants, setApplicants] = useState([]);
   const [memo, setMemo] = useState(null);
-  const [stateofbutton, setStateOfButton] = useState('none');
+  const [stateofbutton, setStateOfButton] = useState("none");
 
   function showApplicants() {
     var x = document.getElementById("applicantsTable");
@@ -19,10 +18,10 @@ const DetailPage = ({ state }) => {
   }
 
   useEffect(() => {
-    if(sessionStorage.getItem('buttonClicked') === 'true'){
-      setStateOfButton('table');
+    if (sessionStorage.getItem("buttonClicked") === "true") {
+      setStateOfButton("table");
     } else {
-      setStateOfButton('none');
+      setStateOfButton("none");
     }
   }, []);
 
@@ -32,10 +31,10 @@ const DetailPage = ({ state }) => {
         try {
           const memo = await contract.getMemoByID(parseInt(id));
           setMemo(memo);
-          
+
           const applicants = await contract.getApplicants(parseInt(id));
           setApplicants(applicants);
-          
+
           // console.log(applicants);
         } catch (error) {
           console.error("Error fetching memo or applicants:", error);
@@ -44,11 +43,11 @@ const DetailPage = ({ state }) => {
     };
     fetchMemoAndApplicants();
   }, [contract, id]);
-  
+
   if (!memo) {
     return <div>Loading...</div>;
   }
-  sessionStorage.setItem('buttonClicked', 'false');
+  sessionStorage.setItem("buttonClicked", "false");
   return (
     <div>
       <h1>Contract Details</h1>
@@ -136,9 +135,39 @@ const DetailPage = ({ state }) => {
           </tr>
         </tbody>
       </table>
-        
-      <div id="applicantblock" style={{display : stateofbutton , marginTop : '2%'}}>
-        <button onClick={showApplicants} >Show Applicants</button>
+
+      <div
+        id="applicantblock"
+        style={{ display: stateofbutton, marginTop: "2%" }}
+      >
+        <button
+                    type="button"
+                    style={{
+                      display: "inline-block",
+                      fontWeight: 400,
+                      textAlign: "center",
+                      whiteSpace: "nowrap",
+                      verticalAlign: "middle",
+                      WebkitUserSelect: "none",
+                      MozUserSelect: "none",
+                      msUserSelect: "none",
+                      userSelect: "none",
+                      border: "1px solid transparent",
+                      padding: "0.375rem 0.75rem",
+                      fontSize: "1rem",
+                      lineHeight: 1.5,
+                      borderRadius: "0.25rem",
+                      transition:
+                        "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
+                      color: "#fff",
+                      backgroundColor: "#ffc107",
+                      borderColor: "#ffc107",
+                    }}
+                    className="custom-btn"
+                    onClick={showApplicants}
+                  >
+                    Show Applicants
+                  </button>
         <table
           id="applicantsTable"
           style={{
@@ -183,6 +212,35 @@ const DetailPage = ({ state }) => {
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>
                   {applicant.ApplicantEmail}
                 </td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                  <button
+                    type="button"
+                    style={{
+                      display: "inline-block",
+                      fontWeight: 400,
+                      textAlign: "center",
+                      whiteSpace: "nowrap",
+                      verticalAlign: "middle",
+                      WebkitUserSelect: "none",
+                      MozUserSelect: "none",
+                      msUserSelect: "none",
+                      userSelect: "none",
+                      border: "1px solid transparent",
+                      padding: "0.375rem 0.75rem",
+                      fontSize: "1rem",
+                      lineHeight: 1.5,
+                      borderRadius: "0.25rem",
+                      transition:
+                        "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
+                      color: "#fff",
+                      backgroundColor: "#ffc107",
+                      borderColor: "#ffc107",
+                    }}
+                    className="custom-btn"
+                  >
+                    Accept
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -192,4 +250,3 @@ const DetailPage = ({ state }) => {
   );
 };
 export default DetailPage;
-

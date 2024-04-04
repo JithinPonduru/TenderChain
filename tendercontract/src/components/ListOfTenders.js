@@ -101,98 +101,100 @@ const Memos = ({ state }) => {
           </tr>
         </thead>
         <tbody>
-          {memos.map((memo, index) => (
-            <React.Fragment key={index}>
-              <tr
-                colSpan="10"
-                style={{
-                  textAlign: "center",
-                  borderBottom: "2px solid #000",
-                }}
-              >
-                <td style={{ padding: "8px" }}>{memo.tenderid.toString()}</td>
-                <td style={{ padding: "8px" }}>{memo.status}</td>
-                <td style={{ padding: "8px" }}>{memo.title}</td>
-                <td style={{ padding: "8px" }}>
-                  <a href={`contract/${memo.tenderid}`}>Details</a>
-                </td>
-                <td style={{ padding: "8px" }}>{memo.DeployedTime}</td>
-                <td style={{ padding: "8px" }}>{memo.Startdate}</td>
-                <td style={{ padding: "8px" }}>{memo.Lastdate}</td>
-                <td style={{ padding: "8px" }}>{memo.BidopeningDate}</td>
-                <td style={{ padding: "8px" }}>
-                  {memo.minimumBiddingPrice.toString()}
-                </td>
-                <td style={{ padding: "8px" }}>{memo.OrganizationName}</td>
-                <td>
-                  <div className="container">
-                    <button
-                      type="button"
-                      className="btn btn-warning"
-                      style={{ margin: "8px" }}
-                      onClick={() => showPopup(index)}
-                    >
-                      Apply
-                    </button>
-                    <div className="popup" id={`popup-${index}`}>
-                      <form method="POST" action="/">
-                        <label className="poplabel">TENDERID</label>
-                        <input
-                          className="popinput"
-                          id="TenderID"
-                          type="number"
-                          placeholder="Tender ID"
-                        />
-
-                        <label className="poplabel">Name</label>
-                        <input
-                          className="popinput"
-                          id="Name"
-                          placeholder="Name"
-                        />
-
-                        <label className="poplabel">Phone No</label>
-                        <input
-                          className="popinput"
-                          id="phoneno"
-                          placeholder="+91XXXXXXXXXX"
-                        />
-
-                        <label className="poplabel">Bidding Price</label>
-                        <input
-                          className="popinput"
-                          id="BiddingPrice"
-                          type="number"
-                          placeholder="₹"
-                        />
-
-                        <label className="poplabel">Email</label>
-                        <input
-                          className="popinput"
-                          type="email"
-                          id="email"
-                          placeholder="example@example.com"
-                        />
-                      </form>
-
+          {memos
+            .filter((memo) => !memo.accepted) // Filter out accepted memos
+            .map((memo, index) => (
+              <React.Fragment key={index}>
+                <tr
+                  colSpan="10"
+                  style={{
+                    textAlign: "center",
+                    borderBottom: "2px solid #000",
+                  }}
+                >
+                  <td style={{ padding: "8px" }}>{memo.tenderid.toString()}</td>
+                  <td style={{ padding: "8px" }}>{memo.status}</td>
+                  <td style={{ padding: "8px" }}>{memo.title}</td>
+                  <td style={{ padding: "8px" }}>
+                    <a href={`contract/${memo.tenderid}`}>Details</a>
+                  </td>
+                  <td style={{ padding: "8px" }}>{memo.DeployedTime}</td>
+                  <td style={{ padding: "8px" }}>{memo.Startdate}</td>
+                  <td style={{ padding: "8px" }}>{memo.Lastdate}</td>
+                  <td style={{ padding: "8px" }}>{memo.BidopeningDate}</td>
+                  <td style={{ padding: "8px" }}>
+                    {memo.minimumBiddingPrice.toString()}
+                  </td>
+                  <td style={{ padding: "8px" }}>{memo.OrganizationName}</td>
+                  <td>
+                    <div className="container">
                       <button
                         type="button"
                         className="btn btn-warning"
                         style={{ margin: "8px" }}
-                        onClick={() => {
-                          ApplyforContract();
-                          hidePopup(index);
-                        }}
+                        onClick={() => showPopup(index)}
                       >
-                        OK
+                        Apply
                       </button>
-                      <div id="result"></div>
+                      <div className="popup" id={`popup-${index}`}>
+                        <form method="POST" action="/">
+                          <label className="poplabel">TENDERID</label>
+                          <input
+                            className="popinput"
+                            id="TenderID"
+                            type="number"
+                            placeholder="Tender ID"
+                          />
+
+                          <label className="poplabel">Name</label>
+                          <input
+                            className="popinput"
+                            id="Name"
+                            placeholder="Name"
+                          />
+
+                          <label className="poplabel">Phone No</label>
+                          <input
+                            className="popinput"
+                            id="phoneno"
+                            placeholder="+91XXXXXXXXXX"
+                          />
+
+                          <label className="poplabel">Bidding Price</label>
+                          <input
+                            className="popinput"
+                            id="BiddingPrice"
+                            type="number"
+                            placeholder="₹"
+                          />
+
+                          <label className="poplabel">Email</label>
+                          <input
+                            className="popinput"
+                            type="email"
+                            id="email"
+                            placeholder="example@example.com"
+                          />
+                        </form>
+
+                        <button
+                          type="button"
+                          className="btn btn-warning"
+                          style={{ margin: "8px" }}
+                          onClick={() => {
+                            ApplyforContract();
+                            hidePopup(index);
+                          }}
+                        >
+                          OK
+                        </button>
+                        <div id="result"></div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            </React.Fragment>
-          ))}
+                  </td>
+                </tr>
+              </React.Fragment>
+            ))}
         </tbody>
       </table>
     </div>
