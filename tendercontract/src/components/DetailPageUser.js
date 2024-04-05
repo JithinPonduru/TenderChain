@@ -17,6 +17,11 @@ const DetailPage = ({ state }) => {
     }
   }
 
+
+
+
+
+
   useEffect(() => {
     if (sessionStorage.getItem("buttonClicked") === "true") {
       setStateOfButton("table");
@@ -48,6 +53,7 @@ const DetailPage = ({ state }) => {
     return <div>Loading...</div>;
   }
   sessionStorage.setItem("buttonClicked", "false");
+
   return (
     <div>
       <h1>Contract Details</h1>
@@ -135,39 +141,39 @@ const DetailPage = ({ state }) => {
           </tr>
         </tbody>
       </table>
-
+  
       <div
         id="applicantblock"
         style={{ display: stateofbutton, marginTop: "2%" }}
       >
         <button
-                    type="button"
-                    style={{
-                      display: "inline-block",
-                      fontWeight: 400,
-                      textAlign: "center",
-                      whiteSpace: "nowrap",
-                      verticalAlign: "middle",
-                      WebkitUserSelect: "none",
-                      MozUserSelect: "none",
-                      msUserSelect: "none",
-                      userSelect: "none",
-                      border: "1px solid transparent",
-                      padding: "0.375rem 0.75rem",
-                      fontSize: "1rem",
-                      lineHeight: 1.5,
-                      borderRadius: "0.25rem",
-                      transition:
-                        "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
-                      color: "#fff",
-                      backgroundColor: "#ffc107",
-                      borderColor: "#ffc107",
-                    }}
-                    className="custom-btn"
-                    onClick={showApplicants}
-                  >
-                    Show Applicants
-                  </button>
+          type="button"
+          style={{
+            display: "inline-block",
+            fontWeight: 400,
+            textAlign: "center",
+            whiteSpace: "nowrap",
+            verticalAlign: "middle",
+            WebkitUserSelect: "none",
+            MozUserSelect: "none",
+            msUserSelect: "none",
+            userSelect: "none",
+            border: "1px solid transparent",
+            padding: "0.375rem 0.75rem",
+            fontSize: "1rem",
+            lineHeight: 1.5,
+            borderRadius: "0.25rem",
+            transition:
+              "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
+            color: "#fff",
+            backgroundColor: "#ffc107",
+            borderColor: "#ffc107",
+          }}
+          className="custom-btn"
+          onClick={showApplicants}
+        >
+          Show Applicants
+        </button>
         <table
           id="applicantsTable"
           style={{
@@ -236,9 +242,24 @@ const DetailPage = ({ state }) => {
                       backgroundColor: "#ffc107",
                       borderColor: "#ffc107",
                     }}
+                    onClick={async () => {
+                      if (contract && id) {
+                        try {
+                          await contract.delete_contract(applicant.TenderID);
+                        } catch (error) {
+                          console.error(
+                            "Error fetching memo or applicants:",
+                            error
+                          );
+                        }
+                      }
+                    console.log(typeof(applicant.accepted));
+                    }
+                  }
                     className="custom-btn"
                   >
                     Accept
+                    
                   </button>
                 </td>
               </tr>
@@ -248,5 +269,6 @@ const DetailPage = ({ state }) => {
       </div>
     </div>
   );
+  
 };
 export default DetailPage;

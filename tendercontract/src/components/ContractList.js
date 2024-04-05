@@ -1,3 +1,4 @@
+//  This page belongs to tender page
 import React, { useEffect, useState } from "react";
 
 const Memos = ({ state, userEmail }) => {
@@ -86,36 +87,50 @@ const Memos = ({ state, userEmail }) => {
               </tr>
             </thead>
             <tbody>
-              {memos.map((memo, index) => (
-                <React.Fragment key={index}>
-                  <tr>
-                    <td style={{ padding: "8px" }}>
-                      {memo.tenderid.toString()}
-                    </td>
-                    <td style={{ padding: "8px" }}>{memo.status}</td>
-                    <td style={{ padding: "8px" }}>{memo.title}</td>
-                    <td style={{ padding: "8px" }}>
-                      <a
-                        href={`contract/${memo.tenderid}`}
-                        onClick={handleDetailsClick}
-                      >
-                        Details
-                      </a>
-                    </td>
-                    <td style={{ padding: "8px" }}>{memo.DeployedTime}</td>
-                    <td style={{ padding: "8px" }}>{memo.Startdate}</td>
-                    <td style={{ padding: "8px" }}>{memo.Lastdate}</td>
-                    <td style={{ padding: "8px" }}>{memo.BidopeningDate}</td>
-                    <td style={{ padding: "8px" }}>
-                      {memo.minimumBiddingPrice.toString()}
-                    </td>
-                    <td style={{ padding: "8px" }}>{memo.OrganizationName}</td>
-                  </tr>
-                  <tr>
-                    <td colSpan="10" style={{ borderBottom: "2px solid #000" }}></td>
-                  </tr>
-                </React.Fragment>
-              ))}
+              {memos.map(
+                (memo, index) =>
+                  memo.accepted.toString() === "false" && (
+                    <React.Fragment key={index}>
+                      <tr>
+                        <td style={{ padding: "8px" }}>
+                          {memo.tenderid.toString()}
+                        </td>
+
+                        <td style={{ padding: "8px" }}>
+                          {memo.status}
+                        </td>
+                       
+                        <td style={{ padding: "8px" }}>{memo.title}</td>
+                        <td style={{ padding: "8px" }}>
+                          <a
+                            href={`contract/${memo.tenderid}`}
+                            onClick={handleDetailsClick}
+                          >
+                            Details
+                          </a>
+                        </td>
+                        <td style={{ padding: "8px" }}>{memo.DeployedTime}</td>
+                        <td style={{ padding: "8px" }}>{memo.Startdate}</td>
+                        <td style={{ padding: "8px" }}>{memo.Lastdate}</td>
+                        <td style={{ padding: "8px" }}>
+                          {memo.BidopeningDate}
+                        </td>
+                        <td style={{ padding: "8px" }}>
+                          {memo.minimumBiddingPrice.toString()}
+                        </td>
+                        <td style={{ padding: "8px" }}>
+                          {memo.OrganizationName}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          colSpan="11"
+                          style={{ borderBottom: "2px solid #000" }}
+                        ></td>
+                      </tr>
+                    </React.Fragment>
+                  )
+              )}
             </tbody>
           </table>
         </div>
