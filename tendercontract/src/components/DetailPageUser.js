@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 
 const DetailPage = ({ state }) => {
   const { id } = useParams(); // Get the ID from the URL
@@ -16,6 +17,42 @@ const DetailPage = ({ state }) => {
       x.style.display = "none";
     }
   }
+
+
+  async function ContractAccepted(applicant) {
+    if (contract && id) {
+      try {
+        await contract.delete_contract(applicant.TenderID);
+        await SendMail(
+          applicant.ApplicantEmail,
+          applicant.Name,
+          applicant.title,
+          applicant.TenderID
+        );
+      } catch (error) {
+        console.error("Error deleting contract or sending mail:", error);
+      }
+    }
+  }
+
+  async function SendMail(email, name, title, tenderid) {
+    const serviceId = "service_33f8t33";
+    const templateId = "template_eibz1cr";
+    try {
+      await emailjs.send(serviceId, templateId, {
+        from_name: name,
+        tender_title: title,
+        tender_id: tenderid,
+        to: email,
+      });
+      alert("Email successfully sent. Check your inbox");
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  }
+  
+  // Initialize EmailJS with your public key
+  emailjs.init("Vl-xEdaI-3Q0XDmss");
 
 
 
@@ -243,17 +280,7 @@ const DetailPage = ({ state }) => {
                       borderColor: "#ffc107",
                     }}
                     onClick={async () => {
-                      if (contract && id) {
-                        try {
-                          await contract.delete_contract(applicant.TenderID);
-                        } catch (error) {
-                          console.error(
-                            "Error fetching memo or applicants:",
-                            error
-                          );
-                        }
-                      }
-                    console.log(typeof(applicant.accepted));
+                      ContractAccepted(applicant);
                     }
                   }
                     className="custom-btn"
