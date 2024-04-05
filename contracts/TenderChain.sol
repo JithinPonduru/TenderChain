@@ -164,20 +164,34 @@ contract DeployerApplication {
         emit ApplicantApplied(_TenderId, _Name, _PhoneNO, _BiddingPrice, _ApplicantEmail);
     }
 
-    function delete_contract(uint _tenderid) public {
+    function delete_contract(uint _tenderid ) public {
         require(!tenderidAccepted[_tenderid], "Tender already accepted");
+        
+        // Mark the tender as accepted
         tenderidAccepted[_tenderid] = true;
 
-        // Mark the tender as accepted in TotalContracts
+        // Update the acceptance status in TotalContracts
         for (uint i = 0; i < TotalContracts.length; i++) {
             if (TotalContracts[i].tenderid == _tenderid) {
                 TotalContracts[i].accepted = true;
                 break;
             }
         }
+
+        // Update the acceptance status in UserContracts
+        string memory userEmail = user[msg.sender].Email;
+        ListObjects[] storage userContracts = UserContracts[userEmail];
+        for (uint i = 0; i < userContracts.length; i++) {
+            if (userContracts[i].tenderid == _tenderid) {
+                userContracts[i].accepted = true;
+                break;
+            }
+        }
     }
+
 
     function getApplicants(uint _TenderId) public view returns (Applicant[] memory) {
         return Applicants[_TenderId];
     }
+
 }
