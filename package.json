@@ -2,7 +2,8 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "dotenv": "^16.4.4",
-    "hardhat": "^2.21.0"
+    "hardhat": "^2.21.0",
+    "mocha": "^10.4.0"
   },
   "name": "tendercontract_backend",
   "description": "This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.",
