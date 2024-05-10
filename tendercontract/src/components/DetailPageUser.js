@@ -26,8 +26,8 @@ const DetailPage = ({ state }) => {
         await SendMail(
           applicant.ApplicantEmail,
           applicant.Name,
-          applicant.title,
-          applicant.TenderID
+          memo.title,
+          memo.tenderid.toString(),
         );
       } catch (error) {
         console.error("Error deleting contract or sending mail:", error);
