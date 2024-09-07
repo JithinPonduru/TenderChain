@@ -110,7 +110,7 @@ function BodyofTenderPage({ contract }) {
       >
         <form onSubmit={deployContract} action="/temp">
           <div className="row">
-            <h4>Account</h4>
+            <h4>Title of the Project</h4>
             <div className="input-group input-group-icon">
               <input
                 id="Title"
