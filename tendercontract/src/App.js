@@ -39,10 +39,10 @@ function App() {
         }
 
         await ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
+        const provider = new ethers.BrowserProvider(ethereum);
+        const signer = await provider.getSigner();
         const contract = new ethers.Contract(contractAddress, abi.abi, signer);
-
+  
         setWalletState({ provider, signer, contract });
       } catch (error) {
         console.error("Error connecting to wallet:", error);

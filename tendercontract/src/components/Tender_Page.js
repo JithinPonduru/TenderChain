@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from './Navbar';
+import Navbar from './YourComponent';
 import BodyofTenderPage from './BodyofTenderPage';
 import Memos from './ContractList';
 import Footer from './Home_Footer';
@@ -14,7 +14,7 @@ function TenderPage({ state, contract, email }) {
 
   return (
     <>
-      <Navbar />
+      <Navbar page={3} />
       <BodyofTenderPage contract={contract} />
       <button
         style={{ marginLeft: '25%', marginBottom: '2%', width: '35%' }}
