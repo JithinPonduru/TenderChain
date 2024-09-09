@@ -273,7 +273,7 @@ const DetailPage = ({ state }) => {
                       fontSize: "1rem",
                       lineHeight: 1.5,
                       borderRadius: "0.25rem",
-                      cursor:"pointer",
+                      cursor:"pointer",~
                       transition:
                         "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
                       color: "#fff",
